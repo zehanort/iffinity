@@ -5,7 +5,7 @@
         "url": "https://github.com/zehanort/iffinity.git"
     },
     "version": "0.1.0",
-    "description": "A minimal IF engine with infinite capabilities",
+    "description": "A minimal IF engine with iffinite capabilities",
     "main": "./dist/cli.js",
     "scripts": {
         "install": "npm run bundle",
