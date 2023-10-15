@@ -1,5 +1,9 @@
 {
     "name": "iffinity",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/zehanort/iffinity.git"
+    },
     "version": "0.1.0",
     "description": "A minimal IF engine with infinite capabilities",
     "main": "./dist/cli.js",
