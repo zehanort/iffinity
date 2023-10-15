@@ -7,6 +7,8 @@
             "es6",
             "DOM"
         ] /* Specify a set of bundled library declaration files that describe the target runtime environment. */,
+        "types": ["node"],
+        "typeRoots": ["node_modules/@types"],
         "module": "commonjs" /* Specify what module code is generated. */,
         "rootDir": "src" /* Specify the root folder within your source files. */,
         "resolveJsonModule": true /* Enable importing .json files. */,

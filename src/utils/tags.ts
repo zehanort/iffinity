@@ -1,10 +1,11 @@
 import fs from "fs";
 import path from "path";
+import * as cheerio from "cheerio";
 
 import { Config } from "../core/types/Config";
 
 function injectTagScriptsAndStyles(
-    snippetDataElem: cheerio.Cheerio,
+    snippetDataElem: cheerio.Cheerio<cheerio.Element>,
     tagList: string,
     config: Config,
     projectRootPath: string,
@@ -37,11 +38,11 @@ function injectTagScriptsAndStyles(
 }
 
 export function injectTagsScriptsAndStyles(
-    snippetDataElem: cheerio.Cheerio,
+    snippetDataElem: cheerio.Cheerio<cheerio.Element>,
     config: Config,
     projectRootPath: string
 ) {
-    const tagList = snippetDataElem.data("tags") || "";
+    const tagList = (snippetDataElem.data("tags") as string) || "";
     injectTagScriptsAndStyles(
         snippetDataElem,
         tagList,

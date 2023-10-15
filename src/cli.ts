@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import yargs, { array } from "yargs";
+import yargs from "yargs";
 import { compileProject } from "./utils/compiler";
 import { showProjectDetails } from "./utils/viewer";
 import { initializeProject } from "./utils/initializer";
