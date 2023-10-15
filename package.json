@@ -4,14 +4,13 @@
         "type": "git",
         "url": "https://github.com/zehanort/iffinity.git"
     },
-    "version": "0.1.0-pre4",
+    "version": "0.1.0-pre5",
     "description": "A minimal IF engine with iffinite capabilities",
     "main": "./dist/cli.js",
     "engines": {
         "node": ">=10"
     },
     "scripts": {
-        "install": "npm run bundle",
         "build": "npm run bundle",
         "start": "node dist/cli.js",
         "bundle": "tsc && webpack --config webpack.config.js"
@@ -41,7 +40,6 @@
         "ansis": "^1.5.6",
         "cheerio": "^1.0.0-rc.12",
         "flexible-tree-printer": "^1.0.2",
-        "iffinity": "^0.1.0",
         "npm": "^10.2.0",
         "puppeteer": "^21.3.8",
         "yargs": "^17.7.2"
