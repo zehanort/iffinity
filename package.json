@@ -4,7 +4,7 @@
         "type": "git",
         "url": "https://github.com/zehanort/iffinity.git"
     },
-    "version": "0.1.0-pre10",
+    "version": "0.2.0",
     "description": "A minimal IF engine with iffinite capabilities",
     "main": "dist/cli.js",
     "types": "dist/cli.d.ts",
@@ -12,7 +12,8 @@
         "node": ">=10"
     },
     "files": [
-        "dist/"
+        "dist/",
+        "examples/"
     ],
     "scripts": {
         "build": "npm run bundle",

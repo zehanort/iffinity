@@ -139,7 +139,9 @@ Once again, similar to Twine/Snowman, the author can use double square brackets 
 
 ### Is that it?
 
-That's just scratching the surface! To get to know the engine and see if it's for you, you can check out the documentation in the [repo wiki](https://github.com/zehanort/iffinity/wiki). There, you can find a lot more information about the engine, including a lot of examples and tutorials, as well as the full documentation of the engine's API.
+That's just scratching the surface! There are different ways to organize your scripts, your stylesheets, a powerful tag system, and more!
+
+To get to know the engine and see if it's for you, you can check out the documentation in the [repo wiki](https://github.com/zehanort/iffinity/wiki). There, you can find a lot more information about the engine, including a lot of examples and tutorials, as well as the full documentation of the engine's API.
 
 ### Can I contribute?
 
