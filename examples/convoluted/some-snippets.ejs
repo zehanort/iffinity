@@ -1,0 +1,38 @@
+<snippet
+    name="Magic Place"
+    tags="THE_WILD"
+    scripts="scripts/mp1.js scripts/mp2.js"
+    styles="styles/mp.css"
+>
+    <p>Oh, I'm in a magic place!</p>
+    <p>[[Back to where it all started...|Intro]]</p>
+</snippet>
+
+<snippet name="Intro" start>
+    <%
+        if (s.PEOPLE_WATCHING === undefined && true) { s.PEOPLE_WATCHING = 0; }
+
+        $(function() {
+            $("#go-square").on('click', function() {
+                alert('Going to the square...');
+                story.showSnippet('Square');
+            });
+        });
+    %>
+    <p>Hello niece and nephew!</p>
+    <p>
+        I will try to [[go to a magic place|Magic Place]] but also to the [[Castle]]. Ok?
+    </p>
+    <p>
+        But I was also thinking of going to the [[Square||.square-class1#go-square.square-class2#go-figure]].
+    </p>
+    <p>There are <%= s.PEOPLE_WATCHING %> people watching you right now...</p>
+    <br />
+    <p>Also, the story code set INIT_VAR to <%= s.INIT_VAR %>!</p>
+</snippet>
+
+<snippet name="Square">
+    <p>Oh, I'm in the square!</p>
+    <p>Nothing at all here...</p>
+    <p>[[Back to where it all started...|Intro]]</p>
+</snippet>

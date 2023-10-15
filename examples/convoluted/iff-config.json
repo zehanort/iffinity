@@ -1,0 +1,36 @@
+{
+    "story": {
+        "title": "Three Snippets",
+        "author": {
+            "name": "Sotiris Niarchos"
+        },
+        "version": "1.0.0"
+    },
+    "scripts": {
+        "story": "scripts/story.js",
+        "global": "scripts/global.js",
+        "tags": [
+            {
+                "rule": "THE_WILD",
+                "files": "scripts/the-wild.js"
+            },
+            {
+                "rule": "CASTLE",
+                "files": "scripts/castle.js"
+            },
+            {
+                "rule": "THE_WILD && CASTLE",
+                "files": "scripts/the-wild-and-castle.js"
+            }
+        ]
+    },
+    "styles": {
+        "story": "styles/story.css",
+        "tags": [
+            {
+                "rule": "THE_WILD",
+                "files": "styles/the-wild.css"
+            }
+        ]
+    }
+}

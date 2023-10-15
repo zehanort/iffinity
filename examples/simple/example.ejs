@@ -1,0 +1,22 @@
+<snippet name="Start" start>
+    <% if (!s.WEALTH) s.WEALTH = 'poor'; %>
+
+    <p>You are at the Start.</p>
+    <p>Before you lies the [[Land of Opportunity]].</p>
+    <br/>    <p>You are <strong><%= s.WEALTH %></strong>.</p>
+</snippet>
+
+<snippet name="Land of Opportunity">
+    <%
+       $(function() {  // never forget that when accessing the DOM!
+           $(".back").on("click", function() {
+               s.WEALTH = $(this).attr('id');
+               story.showSnippet('Start');
+           });
+       });
+    %>
+
+    <p>You are at the Land of Opportunity.</p>
+    <p>Go back [[rich||#rich.back]] or go back [[poor||#poor.back]]?</p>
+    <p>(or [[just go back|Start]] as you are...)</p>
+</snippet>
