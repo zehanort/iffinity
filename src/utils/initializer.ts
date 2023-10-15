@@ -16,8 +16,10 @@ export async function initializeProject() {
     );
     console.log('It only covers the (required) "story" section of the file.');
     console.log();
-    console.log("See ??? for definitive documentation on all possible fields");
-    console.log("and exactly what they do.");
+    console.log(
+        "See https://github.com/zehanort/iffinity/wiki for definitive documentation"
+    );
+    console.log("on all possible fields and exactly what they do.");
     console.log();
     console.log(
         "It is recommended to use the `ifc edit` command to change the config file later on."
