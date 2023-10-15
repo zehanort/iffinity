@@ -83,13 +83,12 @@ export function compileProject(argv: yargs.Arguments): void {
     let storyDataElem = $('<div id="iff-story-data"></div>');
     userSnippets.each((_, snippet) => {
         const snippetElem = $(snippet);
-        // let snippetDataElem = $('<div class="iff-snippet-data"></div>');
         let snippetDataElem = $(
             '<div class="iff-snippet-data"></div>'
         ) as cheerio.Cheerio<cheerio.Element>;
         snippetDataElem.html(snippetElem.html() ?? "");
         for (const k in snippetElem.attr())
-            snippetDataElem.attr(k, snippetElem.get(0)?.attribs[k]);
+            snippetDataElem.attr("data-" + k, snippetElem.get(0)?.attribs[k]);
         // snippet-specific code and style
         injectSnippetCodeAndStyle(snippetDataElem, projectRootPath);
         // tag-related code and style (it is prepended
