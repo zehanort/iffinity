@@ -1,12 +1,15 @@
 # iffinity
 
-## A minimal engine for browser-based interactive fiction, with iffinite possibilities!
+[![npm version](https://badge.fury.io/js/iffinity.svg)](https://badge.fury.io/js/iffinity)
+ [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## A minimal engine for browser, choice/hypertext based interactive fiction, with iffinite possibilities!
 
 ### What is this?
 
-iffinity is an extremely minimal, command-line engine for browser-based interactive fiction.
+iffinity is an extremely minimal, command-line engine for browser, choice/hypertext based interactive fiction. It is heavily inspired by [Twine](https://twinery.org/), and especially by its [Snowman](https://videlais.github.io/snowman/#/) story format.
 
-It is heavily inspired by [Twine](https://twinery.org/), and especially by its [Snowman](https://videlais.github.io/snowman/#/) story format.
+Full documentation can be found in the [repo wiki](https://github.com/zehanort/iffinity/wiki).
 
 The main idea was that Twine and Snowman are great for IF authors that want to have the creative freedom that a real-world, full-fledged programming language like JavaScript provides, but eventually feel limiting and make it quite hard to maintain and organize a project with hundreds of passages. The situation in Twine/Snowman becomes even more frustrating when authors want to have a lot of logic in their stories, e.g. a lot of complicated minigames/puzzles, or states that are hard to track.
 

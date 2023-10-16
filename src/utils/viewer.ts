@@ -255,16 +255,15 @@ export async function showProjectDetails(argv: yargs.Arguments): Promise<void> {
     const [_, snippetFiles] = readAllHtmlAndEjsFilesUnder(projectRootPath);
 
     // option -s
-    if (argv.snippets)
+    if (argv.snippets) {
         showAllSnippets(snippetFiles, config.story.title, projectRootPath);
+        if (argv.tags) console.log();
+    }
+
     // option -t
-    if (argv.tags) {
-        console.log();
+    if (argv.tags)
         showAllTags(snippetFiles, config.story.title, projectRootPath);
-    }
+
     // option -g
-    if (argv.graph) {
-        console.log();
-        await showSnippetGraph(snippetFiles);
-    }
+    if (argv.graph) await showSnippetGraph(snippetFiles);
 }
