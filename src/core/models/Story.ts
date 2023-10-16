@@ -32,6 +32,7 @@ export class Story implements IStory {
                 return new Snippet(
                     i,
                     snippet.data("name"),
+                    snippet.data("tags")?.trim().split(/ +/) ?? [],
                     snippet.data("start") !== undefined,
                     decode(snippet.html())
                 );
@@ -168,6 +169,7 @@ export class Story implements IStory {
     ) {
         this.state = data.state;
         this.history = data.history;
+        this.checkpoint = data.checkpoint;
 
         if (cb) cb(this.state);
 
