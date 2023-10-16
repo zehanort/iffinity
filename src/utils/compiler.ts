@@ -49,15 +49,18 @@ export function compileProject(argv: yargs.Arguments): void {
                 // break second part into id(s) and class(es)
                 const ids = (parts[2].match(/#[\w-]+/g) || []) as string[];
                 const classes = (parts[2].match(/\.[\w-]+/g) || []) as string[];
-                if (ids.length > 1)
+                if (ids.length > 1) {
                     console.warn(
                         `${yellow("Warning:")} snippet link ${yellow(
                             match
                         )} has more than one id.`
                     );
-                console.warn(
-                    `\tWill only use the first one (${bold(ids[0].slice(1))}).`
-                );
+                    console.warn(
+                        `\tWill only use the first one (${bold(
+                            ids[0].slice(1)
+                        )}).`
+                    );
+                }
                 // return the link
                 return `<a href="javascript:void(0)" ${
                     ids.length > 0 ? `id="${ids[0].slice(1)}"` : ""
