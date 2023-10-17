@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import * as cheerio from "cheerio";
 
-import { Config } from "../types/Config";
+import { Config, asArray } from "../types/Config";
 import { encode } from "html-entities";
 
 function injectTagScriptsAndStyles(
@@ -16,7 +16,7 @@ function injectTagScriptsAndStyles(
     if (!tagRules) return;
     for (const tagRule of tagRules.reverse()) {
         if (evaluateTagRule(tagRule.rule, tagList)) {
-            const files = tagRule.files.split(/ +/);
+            const files = asArray(tagRule.files);
             for (const file of files.reverse()) {
                 const filePath = path.join(projectRootPath, file);
                 if (!fs.existsSync(filePath))

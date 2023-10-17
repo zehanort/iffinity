@@ -1,5 +1,5 @@
 import { green, red, yellow } from "ansis/colors";
-import { Config } from "../types/Config";
+import { Config, asArray } from "../types/Config";
 import fs from "fs";
 import path from "path";
 import $ from "cheerio";
@@ -69,46 +69,52 @@ export function checkConfig(
         console.info(`Story version: ${green(config.story.version)}`);
     }
     if (config.scripts?.story) {
-        if (!fs.existsSync(path.join(projectRootDir, config.scripts.story))) {
-            console.error(
-                `${red("Error:")} story code file "${
-                    config.scripts.story
-                }" not found. Aborting.`
-            );
-            process.exit(1);
-        } else if (printInfo) {
-            console.info(
-                `Specified story code file: ${green(config.scripts.story)}`
-            );
+        for (const script of asArray(config.scripts.story)) {
+            if (!fs.existsSync(path.join(projectRootDir, script))) {
+                console.error(
+                    `${red("Error:")} story code file "${script}" not found.`
+                );
+                process.exit(1);
+            }
         }
+        if (printInfo)
+            console.info(
+                `Specified story code file(s): ${green(
+                    asArray(config.scripts.story).join(", ")
+                )}`
+            );
     }
     if (config.scripts?.global) {
-        if (!fs.existsSync(path.join(projectRootDir, config.scripts.global))) {
-            console.error(
-                `${red("Error:")} global code file "${
-                    config.scripts.global
-                }" not found. Aborting.`
-            );
-            process.exit(1);
-        } else if (printInfo) {
-            console.info(
-                `Specified global code file: ${green(config.scripts.global)}`
-            );
+        for (const script of asArray(config.scripts.global)) {
+            if (!fs.existsSync(path.join(projectRootDir, script))) {
+                console.error(
+                    `${red("Error:")} global code file "${script}" not found.`
+                );
+                process.exit(1);
+            }
         }
+        if (printInfo)
+            console.info(
+                `Specified global code file(s): ${green(
+                    asArray(config.scripts.global).join(", ")
+                )}`
+            );
     }
     if (config.styles?.story) {
-        if (!fs.existsSync(path.join(projectRootDir, config.styles.story))) {
-            console.error(
-                `${red("Error:")} story style file "${
-                    config.styles.story
-                }" not found. Aborting.`
-            );
-            process.exit(1);
-        } else if (printInfo) {
-            console.info(
-                `Specified story style file: ${green(config.styles.story)}`
-            );
+        for (const style of asArray(config.styles.story)) {
+            if (!fs.existsSync(path.join(projectRootDir, style))) {
+                console.error(
+                    `${red("Error:")} story style file "${style}" not found.`
+                );
+                process.exit(1);
+            }
         }
+        if (printInfo)
+            console.info(
+                `Specified story style file(s): ${green(
+                    asArray(config.styles.story).join(", ")
+                )}`
+            );
     }
     if (printInfo) console.groupEnd();
 }

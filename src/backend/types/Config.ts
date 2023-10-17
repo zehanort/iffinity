@@ -1,6 +1,32 @@
+import fs from "fs";
+import path from "path";
+
+export type StringOrStringArray = string | string[];
+
+export function asArray(value: StringOrStringArray): string[] {
+    if (Array.isArray(value)) {
+        return value;
+    } else {
+        return [value];
+    }
+}
+
+export function concatFileContents(
+    projectRootPath: string,
+    filelist: StringOrStringArray
+): string {
+    return asArray(filelist).reduce(
+        (acc, script) =>
+            acc +
+            fs.readFileSync(path.join(projectRootPath, script), "utf8") +
+            "\n",
+        ""
+    );
+}
+
 export type TagRule = {
     rule: string;
-    files: string;
+    files: StringOrStringArray;
 };
 
 export type Config = {
@@ -14,18 +40,18 @@ export type Config = {
         repository?: { type: string; url: string };
     };
     libraries?: {
-        scripts?: string[];
-        styles?: string[];
+        scripts?: StringOrStringArray;
+        styles?: StringOrStringArray;
     };
 
     scripts?: {
-        story?: string;
-        global?: string;
+        story?: StringOrStringArray;
+        global?: StringOrStringArray;
         tags?: TagRule[];
     };
 
     styles?: {
-        story?: string;
+        story?: StringOrStringArray;
         tags?: TagRule[];
     };
 };

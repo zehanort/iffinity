@@ -9,6 +9,7 @@ import { injectSnippetCodeAndStyle } from "./snippets";
 import yargs from "yargs";
 import { bold, red, yellow } from "ansis/colors";
 import { encode } from "html-entities";
+import { asArray, concatFileContents } from "../types/Config";
 
 export function compileProject(argv: yargs.Arguments): void {
     const projectRootPath = (argv.projectRoot as string) || process.cwd();
@@ -105,14 +106,18 @@ export function compileProject(argv: yargs.Arguments): void {
     let storyDataElem = $('<div id="iff-story-data"></div>');
     userSnippets.each((_, snippet) => {
         const snippetElem = $(snippet);
+
         let snippetDataElem = $(
             '<div class="iff-snippet-data"></div>'
         ) as cheerio.Cheerio<cheerio.Element>;
         snippetDataElem.html(snippetElem.html() ?? "");
+
         for (const k in snippetElem.attr())
             snippetDataElem.attr("data-" + k, snippetElem.get(0)?.attribs[k]);
+
         // snippet-specific code and style
         injectSnippetCodeAndStyle(snippetDataElem, projectRootPath);
+
         // tag-related code and style (it is prepended
         // so it will go before the snippet-specific code and style)
         injectTagsScriptsAndStyles(snippetDataElem, config, projectRootPath);
@@ -150,7 +155,7 @@ export function compileProject(argv: yargs.Arguments): void {
     // TODO: add support for external libraries and option to bundle them
     //       (right now, they are just copied as-is)
     if (config.libraries?.styles)
-        for (const style of config.libraries.styles) {
+        for (const style of asArray(config.libraries.styles)) {
             let fullFilePath = path.join(projectRootPath, style);
             if (!fs.existsSync(fullFilePath))
                 console.warn(
@@ -166,7 +171,7 @@ export function compileProject(argv: yargs.Arguments): void {
         }
 
     if (config.libraries?.scripts)
-        for (const script of config.libraries.scripts) {
+        for (const script of asArray(config.libraries.scripts)) {
             let fullFilePath = path.join(projectRootPath, script);
             if (!fs.existsSync(fullFilePath))
                 console.warn(
@@ -184,41 +189,41 @@ export function compileProject(argv: yargs.Arguments): void {
     /**
      * user story code
      */
-    // append it to the body as simple text
-    // the engine code will take care of it
-    if (config.scripts?.story)
-        outputHTML("#iff-story-data").append(
-            `<div id="iff-story-code" hidden="">${encode(
-                fs.readFileSync(
-                    path.join(projectRootPath, config.scripts.story),
-                    "utf8"
-                )
-            )}</div>`
+    // append story code files to the body as simple
+    // text, the engine code will take care of it
+    if (config.scripts?.story) {
+        const fullStoryCode = concatFileContents(
+            projectRootPath,
+            config.scripts.story
         );
+        outputHTML("#iff-story-data").append(
+            `<div id="iff-story-code" hidden="">${encode(fullStoryCode)}</div>`
+        );
+    }
 
     /**
      * user global code
      */
-    if (config.scripts?.global)
-        outputHTML(".iff-snippet-data").prepend(
-            encode(
-                `<% ${fs.readFileSync(
-                    path.join(projectRootPath, config.scripts.global),
-                    "utf8"
-                )} %>`
-            )
+    if (config.scripts?.global) {
+        const fullGlobalCode = concatFileContents(
+            projectRootPath,
+            config.scripts.global
         );
+        outputHTML(".iff-snippet-data").prepend(
+            `<%\n${encode(fullGlobalCode)}\n%>\n\n`
+        );
+    }
 
     /**
      * user story style
      */
-    if (config.styles?.story)
-        outputHTML("head").append(
-            `<style>${fs.readFileSync(
-                path.join(projectRootPath, config.styles.story),
-                "utf8"
-            )}</style>`
+    if (config.styles?.story) {
+        const fullStoryStyle = concatFileContents(
+            projectRootPath,
+            config.styles.story
         );
+        outputHTML("head").append(`<style>${fullStoryStyle}</style>`);
+    }
 
     fs.writeFile(outputFilePath, outputHTML.html(), (err) => {
         if (err) {

@@ -88,51 +88,82 @@ yargs
                     describe: "Change the repository of the story",
                     type: "string",
                 })
-                .option("add-lib-script", {
-                    describe: "Add a library script to the story",
-                    type: "string",
-                })
-                .option("remove-lib-script", {
-                    describe: "Remove a library script from the story",
-                    type: "string",
-                })
-                .option("add-lib-style", {
-                    describe: "Add a library style to the story",
-                    type: "string",
-                })
-                .option("remove-lib-style", {
-                    describe: "Remove a library style from the story",
-                    type: "string",
-                })
-                .option("story-script", {
-                    describe: "Set/change the story script",
-                    type: "string",
-                })
-                .option("global-script", {
-                    describe: "Set/change the global script",
-                    type: "string",
-                })
-                .option("story-style", {
-                    describe: "Set/change the story style",
-                    type: "string",
-                })
-                .option("add-tag-script-rule", {
-                    describe:
-                        "Add a tag rule to the story, along with the corresponding script",
-                    example: '--add-tag-script "TAG1 && !TAG2" script.js',
+                .option("add-lib-scripts", {
+                    describe: "Append library script(s) to the story",
                     type: "array",
                 })
-                .option("remove-tag-script-rule", {
+                .option("remove-lib-scripts", {
+                    describe: "Remove library script(s) from the story",
+                    type: "array",
+                })
+                .option("clear-lib-scripts", {
+                    describe: "Remove all library scripts from the story",
+                    type: "boolean",
+                })
+                .option("add-lib-styles", {
+                    describe: "Append library style(s) to the story",
+                    type: "array",
+                })
+                .option("remove-lib-styles", {
+                    describe: "Remove library style(s) from the story",
+                    type: "array",
+                })
+                .option("clear-lib-styles", {
+                    describe: "Remove all library styles from the story",
+                    type: "boolean",
+                })
+                .option("add-story-scripts", {
+                    describe: "Append story script(s) to the story",
+                    type: "array",
+                })
+                .option("remove-story-scripts", {
+                    describe: "Remove story script(s) from the story",
+                    type: "array",
+                })
+                .option("clear-story-scripts", {
+                    describe: "Remove all story scripts from the story",
+                    type: "boolean",
+                })
+                .option("add-story-styles", {
+                    describe: "Append story style(s) to the story",
+                    type: "array",
+                })
+                .option("remove-story-styles", {
+                    describe: "Remove story style(s) from the story",
+                    type: "array",
+                })
+                .option("clear-story-styles", {
+                    describe: "Remove all story styles from the story",
+                    type: "boolean",
+                })
+                .option("add-global-scripts", {
+                    describe: "Append global script(s) to the story",
+                    type: "array",
+                })
+                .option("remove-global-scripts", {
+                    describe: "Remove global script(s) from the story",
+                    type: "array",
+                })
+                .option("clear-global-scripts", {
+                    describe: "Remove all global scripts from the story",
+                    type: "boolean",
+                })
+                .option("add-script-tag-rule", {
+                    describe:
+                        "Add a tag rule to the story, along with the corresponding script(s)",
+                    type: "array",
+                })
+                .option("remove-script-tag-rule", {
                     describe:
                         "Remove a tag rule from the story, along with the corresponding script",
                     type: "string",
                 })
-                .option("add-tag-style-rule", {
+                .option("add-style-tag-rule", {
                     describe:
-                        "Add a tag rule to the story, along with the corresponding style",
+                        "Add a tag rule to the story, along with the corresponding style(s)",
                     type: "array",
                 })
-                .option("remove-tag-style-rule", {
+                .option("remove-style-tag-rule", {
                     describe:
                         "Remove a tag rule from the story, along with the corresponding style",
                     type: "string",
@@ -140,10 +171,14 @@ yargs
                 .example("$0 edit --story-version 1.1.0", "")
                 .example("$0 edit --repo https://github.com/user/repo.git", "")
                 .example(
-                    "$0 edit --add-tag-script-rule 'TAG1 && !TAG2' script.js",
+                    "$0 edit --add-global-scripts global-vars.js global-logic.js",
                     ""
                 )
-                .example("$0 edit --remove-tag-style-rule 'TAG1 || TAG2'", "")
+                .example(
+                    "$0 edit --add-script-tag-rule 'TAG1 && !TAG2' script1.js script2.js",
+                    ""
+                )
+                .example("$0 edit --remove-style-tag-rule 'TAG1 || TAG2'", "")
                 .check((argv) => {
                     if (Object.keys(argv).length <= 2) {
                         yargs.showHelp();

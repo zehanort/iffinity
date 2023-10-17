@@ -6,6 +6,7 @@
     background: #4a0b5e;
     color: white;
 }
+
 </style></head>
 <body>
     <div id="iff-story">
@@ -13,7 +14,8 @@
     </div>
 
 
-<div id="iff-story-data" data-title="Three Snippets" data-author-name="Sotiris Niarchos" data-author-email="" data-version="1.0.0" hidden=""><div class="iff-snippet-data" data-name="Magic Place" data-tags="THE_WILD" data-scripts="scripts/mp1.js scripts/mp2.js" data-styles="styles/mp.css">&lt;% if (s.GLU === undefined) s.GLU = 1;
+<div id="iff-story-data" data-title="Three Snippets" data-author-name="Sotiris Niarchos" data-author-email="" data-version="1.0.0" hidden=""><div class="iff-snippet-data" data-name="Magic Place" data-tags="THE_WILD" data-scripts="scripts/mp1.js scripts/mp2.js" data-styles="styles/mp.css">&lt;%
+if (s.GLU === undefined) s.GLU = 1;
 else s.GLU++;
 
 f.say = function (msg) {
@@ -27,7 +29,11 @@ $(function () {
     );
     $("#glu").css("border", "1px solid yellow");
 });
- %&gt;<style>
+
+
+%&gt;
+
+<style>
                         body {
     background-color: green;
 }
@@ -85,7 +91,8 @@ $(function () {
 
     <p>Oh, I'm in a magic place!</p>
     <p><a href="javascript:void(0)" data-snippet="Intro">Back to where it all started...</a></p>
-</div><div class="iff-snippet-data" data-name="Intro" data-start="">&lt;% if (s.GLU === undefined) s.GLU = 1;
+</div><div class="iff-snippet-data" data-name="Intro" data-start="">&lt;%
+if (s.GLU === undefined) s.GLU = 1;
 else s.GLU++;
 
 f.say = function (msg) {
@@ -99,7 +106,11 @@ $(function () {
     );
     $("#glu").css("border", "1px solid yellow");
 });
- %&gt;
+
+
+%&gt;
+
+
     &lt;%
         if (s.PEOPLE_WATCHING === undefined &amp;&amp; true) { s.PEOPLE_WATCHING = 0; }
 
@@ -120,7 +131,8 @@ $(function () {
     <p>There are &lt;%= s.PEOPLE_WATCHING %&gt; people watching you right now...</p>
     <br>
     <p>Also, the story code set INIT_VAR to &lt;%= s.INIT_VAR %&gt;!</p>
-</div><div class="iff-snippet-data" data-name="Square">&lt;% if (s.GLU === undefined) s.GLU = 1;
+</div><div class="iff-snippet-data" data-name="Square">&lt;%
+if (s.GLU === undefined) s.GLU = 1;
 else s.GLU++;
 
 f.say = function (msg) {
@@ -134,11 +146,16 @@ $(function () {
     );
     $("#glu").css("border", "1px solid yellow");
 });
- %&gt;
+
+
+%&gt;
+
+
     <p>Oh, I'm in the square!</p>
     <p>Nothing at all here...</p>
     <p><a href="javascript:void(0)" data-snippet="Intro">Back to where it all started...</a></p>
-</div><div class="iff-snippet-data" data-name="Castle" data-tags="THE_WILD CASTLE">&lt;% if (s.GLU === undefined) s.GLU = 1;
+</div><div class="iff-snippet-data" data-name="Castle" data-tags="THE_WILD CASTLE">&lt;%
+if (s.GLU === undefined) s.GLU = 1;
 else s.GLU++;
 
 f.say = function (msg) {
@@ -152,7 +169,11 @@ $(function () {
     );
     $("#glu").css("border", "1px solid yellow");
 });
- %&gt;<style>
+
+
+%&gt;
+
+<style>
                         body {
     background-color: green;
 }
@@ -199,4 +220,5 @@ $(function () {
     // append a new paragraph to the snippet output
     $("#iff-snippet").append("&lt;p&gt;Story script loaded&lt;/p&gt;");
 });
+
 </div></div></body></html>
