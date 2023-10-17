@@ -1,0 +1,42 @@
+{
+    "story": {
+        "title": "multfiles",
+        "author": {
+            "name": "Sotiris Niarchos",
+            "email": "sot.niarchos@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "styles": {
+        "story": [
+            "styles/story1.css",
+            "styles/story2.css",
+            "styles/story3.css"
+        ]
+    },
+    "scripts": {
+        "global": [
+            "scripts/global1.js",
+            "scripts/global2.js",
+            "scripts/global3.js"
+        ],
+        "tags": [
+            {
+                "rule": "A && !B && C",
+                "files": [
+                    "scripts/tag1.js",
+                    "scripts/tag3.js"
+                ]
+            },
+            {
+                "rule": "A && B && C",
+                "files": "scripts/tag2.js"
+            }
+        ],
+        "story": [
+            "scripts/story1.js",
+            "scripts/story2.js",
+            "scripts/story3.js"
+        ]
+    }
+}
