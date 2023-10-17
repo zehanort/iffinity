@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import * as cheerio from "cheerio";
 
-import { Config } from "../core/types/Config";
+import { Config } from "../types/Config";
 import { encode } from "html-entities";
 
 function injectTagScriptsAndStyles(

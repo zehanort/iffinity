@@ -1,9 +1,9 @@
 const path = require("path");
 
 module.exports = {
-    entry: path.resolve(__dirname, "dist", "core", "iffinity.js"),
+    entry: path.resolve(__dirname, "dist", "frontend", "iffinity.js"),
     output: {
-        path: path.resolve(__dirname, "dist", "core"),
+        path: path.resolve(__dirname, "dist", "frontend"),
         filename: "iffinity-browser.js",
     },
     target: "web",

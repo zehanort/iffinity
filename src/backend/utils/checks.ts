@@ -1,5 +1,5 @@
 import { green, red, yellow } from "ansis/colors";
-import { Config } from "../core/types/Config";
+import { Config } from "../types/Config";
 import fs from "fs";
 import path from "path";
 import $ from "cheerio";

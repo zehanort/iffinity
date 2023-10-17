@@ -132,7 +132,12 @@ export function compileProject(argv: yargs.Arguments): void {
      */
     outputHTML("head").append(
         `<script>${fs.readFileSync(
-            path.join(path.dirname(__dirname), "core", "iffinity-browser.js"),
+            path.join(
+                path.dirname(__dirname),
+                "..",
+                "frontend",
+                "iffinity-browser.js"
+            ),
             "utf8"
         )}</script>`
     );

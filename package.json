@@ -4,10 +4,10 @@
         "type": "git",
         "url": "https://github.com/zehanort/iffinity.git"
     },
-    "version": "0.2.1",
+    "version": "0.3.0",
     "description": "A minimal IF engine with iffinite capabilities",
-    "main": "dist/cli.js",
-    "types": "dist/cli.d.ts",
+    "main": "dist/backend/cli.js",
+    "types": "dist/backend/cli.d.ts",
     "engines": {
         "node": ">=10"
     },
@@ -16,12 +16,10 @@
         "examples/"
     ],
     "scripts": {
-        "build": "npm run bundle",
-        "start": "node dist/cli.js",
-        "bundle": "tsc && webpack --config webpack.config.js"
+        "build": "tsc && webpack --config webpack.config.js"
     },
     "bin": {
-        "ifc": "dist/cli.js"
+        "ifc": "dist/backend/cli.js"
     },
     "keywords": [],
     "author": "Sotiris Niarchos",
@@ -36,7 +34,6 @@
         "expose-loader": "^4.1.0",
         "html-entities": "^2.4.0",
         "jquery": "^3.7.1",
-        "terser-webpack-plugin": "^5.3.9",
         "typescript": "^5.2.2",
         "webpack": "^5.88.2",
         "webpack-cli": "^5.1.4"

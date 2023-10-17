@@ -6,6 +6,7 @@ import { showProjectDetails } from "./utils/viewer";
 import { initializeProject } from "./utils/initializer";
 import { editConfigFile } from "./utils/config";
 import { red } from "ansis/colors";
+import path from "path";
 
 const usageStr = `~~~ The iffinity engine compiler ~~~
 
@@ -21,7 +22,9 @@ yargs
     .version(
         "version",
         "Show iffinity engine version number",
-        `iffinity engine v${require("../package.json").version}`
+        `iffinity engine v${
+            require(path.join(__dirname, "..", "..", "package.json")).version
+        }`
     )
     .command(
         ["$0 [options]", "compile [options]"],

@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { Config, TagRule } from "../core/types/Config";
+import { Config, TagRule } from "../types/Config";
 import yargs from "yargs";
 import { checkConfig } from "./checks";
 import { green, red } from "ansis/colors";
