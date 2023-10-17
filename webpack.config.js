@@ -1,5 +1,3 @@
-const webpack = require("webpack");
-const TerserPlugin = require("terser-webpack-plugin");
 const path = require("path");
 
 module.exports = {
@@ -8,14 +6,10 @@ module.exports = {
         path: path.resolve(__dirname, "dist", "core"),
         filename: "iffinity-browser.js",
     },
+    target: "web",
     mode: "production",
-
     module: {
         rules: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-            },
             {
                 test: require.resolve("jquery"),
                 use: [
@@ -29,15 +23,6 @@ module.exports = {
             },
         ],
     },
-
-    plugins: [
-        new webpack.ProvidePlugin({
-            $: "jquery",
-            jQuery: "jquery",
-        }),
-        new TerserPlugin(),
-    ],
-
     resolve: {
         fallback: {
             path: false,
