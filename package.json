@@ -4,7 +4,7 @@
         "type": "git",
         "url": "https://github.com/zehanort/iffinity.git"
     },
-    "version": "0.3.1",
+    "version": "0.3.2",
     "description": "A minimal IF engine with iffinite capabilities",
     "main": "dist/backend/cli.js",
     "types": "dist/backend/cli.d.ts",

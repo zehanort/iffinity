@@ -18,6 +18,7 @@ $0 <command> --help/-h (e.g. $0 show --help)
 Usage: $0 [command] [commandOptions]`;
 
 yargs
+    .strict()
     .usage(usageStr)
     .version(
         "version",
@@ -47,6 +48,15 @@ yargs
                     alias: "o",
                     describe: "The output HTML file path",
                     type: "string",
+                })
+                .check((argv) => {
+                    if (argv.options) {
+                        yargs.showHelp();
+                        console.error();
+                        console.error(`Unknown command: ${argv.options}`);
+                        process.exit(1);
+                    }
+                    return true;
                 });
         },
         compileProject
