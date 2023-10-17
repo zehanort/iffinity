@@ -84,6 +84,24 @@ export function compileProject(argv: yargs.Arguments): void {
     performInitialSanityChecks(userSnippets, allUserFiles.length);
     console.info("So far so good. Compiling...");
 
+    const outputHTML = cheerio.load(
+        `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div id="iff-story">
+        <div id="iff-snippet"></div>
+    </div>
+</body>
+</html>
+`
+    );
+
+    outputHTML("title").text(config.story.title);
+
     let storyDataElem = $('<div id="iff-story-data"></div>');
     userSnippets.each((_, snippet) => {
         const snippetElem = $(snippet);
@@ -101,22 +119,6 @@ export function compileProject(argv: yargs.Arguments): void {
 
         storyDataElem.append(snippetDataElem);
     });
-
-    const outputHTML = cheerio.load(
-        `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-    <div id="iff-snippet"></div>
-</body>
-</html>
-`
-    );
-
-    outputHTML("title").text(config.story.title);
 
     // save title, author and version in the story data
     storyDataElem.attr("data-title", config.story.title);

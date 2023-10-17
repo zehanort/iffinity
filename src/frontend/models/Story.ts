@@ -104,24 +104,23 @@ export class Story implements IStory {
      * @returns true if the snippet was found and shown, false otherwise
      */
     showSnippet(id: string | number, addToHistory = true): boolean {
-        $("#iff-snippet").html(this.renderSnippet(id));
+        const snippet = this.getSnippet(id);
 
-        // set up the behavior for the snippet links
-        $("a[data-snippet]").on("click", (event: JQuery.ClickEvent) => {
-            const targetSnippetName = $(event.target).data("snippet");
-            const targetSnippet = this.getSnippet(targetSnippetName);
-            if (!targetSnippet) {
+        if (!snippet) {
+            if (typeof id === "string")
+                console.error(`Error: snippet "${id}" not found in the story.`);
+            else
                 console.error(
-                    `Error: snippet "${targetSnippetName}" not found in the story.`
+                    `Error: snippet with id ${id} not found in the story.`
                 );
-                return false;
-            }
-            this.showSnippet(targetSnippet.id);
-        });
+            return false;
+        }
 
         // add the snippet to the history
-        const snippet = this.getSnippet(id);
-        if (addToHistory && snippet) this.history.push(snippet.id);
+        if (addToHistory) this.history.push(snippet.id);
+
+        // render the snippet
+        $("#iff-snippet").html(this.renderSnippet(snippet.id));
 
         return true;
     }
@@ -133,6 +132,20 @@ export class Story implements IStory {
             console.error("Error: no starting snippet found in the story.");
             return;
         }
+
+        // setup the click events for all snippet links
+        $("#iff-story").on("click", "a[data-snippet]", (event) => {
+            const targetSnippetName = $(event.target).data("snippet");
+            const targetSnippet = this.getSnippet(targetSnippetName);
+            if (!targetSnippet) {
+                console.error(
+                    `Error: snippet "${targetSnippetName}" not found in the story.`
+                );
+                return false;
+            }
+            this.showSnippet(targetSnippet.id);
+        });
+
         this.showSnippet(startingSnippet.id);
     }
 
