@@ -3,6 +3,7 @@ import path from "path";
 import * as cheerio from "cheerio";
 
 import { Config } from "../core/types/Config";
+import { encode } from "html-entities";
 
 function injectTagScriptsAndStyles(
     snippetDataElem: cheerio.Cheerio<cheerio.Element>,
@@ -24,7 +25,7 @@ function injectTagScriptsAndStyles(
                     );
                 if (scripts)
                     snippetDataElem.prepend(
-                        `<% ${fs.readFileSync(filePath, "utf8")} %>`
+                        `<% ${encode(fs.readFileSync(filePath, "utf8"))} %>`
                     );
                 else
                     snippetDataElem.prepend(

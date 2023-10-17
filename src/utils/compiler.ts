@@ -8,6 +8,7 @@ import { injectTagsScriptsAndStyles } from "./tags";
 import { injectSnippetCodeAndStyle } from "./snippets";
 import yargs from "yargs";
 import { bold, red, yellow } from "ansis/colors";
+import { encode } from "html-entities";
 
 export function compileProject(argv: yargs.Arguments): void {
     const projectRootPath = (argv.projectRoot as string) || process.cwd();
@@ -180,9 +181,11 @@ export function compileProject(argv: yargs.Arguments): void {
     // the engine code will take care of it
     if (config.scripts?.story)
         outputHTML("#iff-story-data").append(
-            `<div id="iff-story-code" hidden="">${fs.readFileSync(
-                path.join(projectRootPath, config.scripts.story),
-                "utf8"
+            `<div id="iff-story-code" hidden="">${encode(
+                fs.readFileSync(
+                    path.join(projectRootPath, config.scripts.story),
+                    "utf8"
+                )
             )}</div>`
         );
 
@@ -191,10 +194,12 @@ export function compileProject(argv: yargs.Arguments): void {
      */
     if (config.scripts?.global)
         outputHTML(".iff-snippet-data").prepend(
-            `<% ${fs.readFileSync(
-                path.join(projectRootPath, config.scripts.global),
-                "utf8"
-            )} %>`
+            encode(
+                `<% ${fs.readFileSync(
+                    path.join(projectRootPath, config.scripts.global),
+                    "utf8"
+                )} %>`
+            )
         );
 
     /**

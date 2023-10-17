@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import * as cheerio from "cheerio";
+import { encode } from "html-entities";
 
 export function injectSnippetCodeAndStyle(
     snippetDataElem: cheerio.Cheerio<cheerio.Element>,
@@ -17,8 +18,7 @@ export function injectSnippetCodeAndStyle(
             if (snippetCodeContent)
                 snippetDataElem.prepend(
                     `<!-- code for snippet "${snippetCodeFile}" (file: "${snippetCodeFile}) -->` +
-                        "\n" +
-                        `<% ${snippetCodeContent} %>\n\n`
+                        `\n<%\n${encode(snippetCodeContent)}\n%>\n\n`
                 );
         }
     }
@@ -34,8 +34,7 @@ export function injectSnippetCodeAndStyle(
             if (snippetStyleContent)
                 snippetDataElem.prepend(
                     `<!-- style for snippet "${snippetStyleFile}" (file: "${snippetStyleFile}") -->` +
-                        "\n" +
-                        `<style>${snippetStyleContent}</style>\n\n`
+                        `\n<style>\n${snippetStyleContent}\n</style>\n\n`
                 );
         }
     }
