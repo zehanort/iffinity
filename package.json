@@ -4,7 +4,7 @@
         "type": "git",
         "url": "https://github.com/zehanort/iffinity.git"
     },
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "A minimal IF engine with iffinite capabilities",
     "main": "dist/backend/cli.js",
     "types": "dist/backend/cli.d.ts",
@@ -32,7 +32,6 @@
         "@types/yargs": "^17.0.26",
         "ejs": "^3.1.9",
         "expose-loader": "^4.1.0",
-        "html-entities": "^2.4.0",
         "jquery": "^3.7.1",
         "typescript": "^5.2.2",
         "webpack": "^5.88.2",
@@ -42,6 +41,7 @@
         "ansis": "^1.5.6",
         "cheerio": "^1.0.0-rc.12",
         "flexible-tree-printer": "^1.0.2",
+        "html-entities": "^2.4.0",
         "npm": "^10.2.0",
         "puppeteer": "^21.3.8",
         "yargs": "^17.7.2"
