@@ -145,6 +145,19 @@ export function performInitialSanityChecks(
         process.exit(1);
     }
 
+    let numUnnamedSnippets = userSnippets.filter((_, snippet) => {
+        const name = $(snippet).attr("name");
+        return !name || name.trim().length === 0;
+    }).length;
+    if (numUnnamedSnippets > 0) {
+        console.error(
+            `${red("Error:")} found ${red(
+                numUnnamedSnippets.toString()
+            )} unnamed snippet(s). Aborting.`
+        );
+        process.exit(1);
+    }
+
     let numStartingSnippets = userSnippets.filter("[start]").length;
     const startingSnippetsColor = numStartingSnippets === 1 ? green : red;
     console.info(
