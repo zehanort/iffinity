@@ -16,15 +16,18 @@ export function compileProject(argv: yargs.Arguments): void {
     const config = loadConfigFile(argv);
     const outputFilePath =
         (argv.outputFile as string) ||
-        config.story.title.replace(/ /g, "_") + ".html";
+        config.story.title.replace(/ \-/g, "_").replace(/[^a-zA-Z0-9_]/g, "") +
+            ".html";
 
     let [allUserSnippetsSource, allUserFiles] =
         readAllHtmlAndEjsFilesUnder(projectRootPath);
 
     const processedUserTemplate = allUserSnippetsSource.replace(
         /\[\[([^\]]*)\]\]/g,
-        (match, p1) => {
-            const parts = p1.split("|");
+        (match, p1: string) => {
+            const parts = p1
+                .split("|")
+                .map((s) => s.trim().replace(/\n+ */g, " "));
             if (parts.length === 1) {
                 // case [[<snippet name>]]
                 return `<a href="javascript:void(0)" data-snippet="${parts[0]}">${parts[0]}</a>`;
