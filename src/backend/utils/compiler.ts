@@ -16,7 +16,7 @@ export function compileProject(argv: yargs.Arguments): void {
     const config = loadConfigFile(argv);
     const outputFilePath =
         (argv.outputFile as string) ||
-        config.story.title.replace(/ \-/g, "_").replace(/[^a-zA-Z0-9_]/g, "") +
+        config.story.title.replace(/[ -]/g, "_").replace(/[^a-zA-Z0-9_]/g, "") +
             ".html";
 
     let [allUserSnippetsSource, allUserFiles] =
