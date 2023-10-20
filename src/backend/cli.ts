@@ -49,6 +49,12 @@ yargs
                     describe: "The output HTML file path",
                     type: "string",
                 })
+                .option("testFrom", {
+                    alias: "t",
+                    describe:
+                        "Test the story from a different snippet than the start snippet",
+                    type: "string",
+                })
                 .check((argv) => {
                     if (argv.options) {
                         yargs.showHelp();

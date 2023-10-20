@@ -7,16 +7,17 @@ import { loadConfigFile } from "./config";
 import { injectTagsScriptsAndStyles } from "./tags";
 import { injectSnippetCodeAndStyle } from "./snippets";
 import yargs from "yargs";
-import { bold, red, yellow } from "ansis/colors";
+import { bold, green, red, yellow } from "ansis/colors";
 import { encode } from "html-entities";
 import { asArray, concatFileContents } from "../types/Config";
 
 export function compileProject(argv: yargs.Arguments): void {
     const projectRootPath = (argv.projectRoot as string) || process.cwd();
     const config = loadConfigFile(argv);
-    const outputFilePath =
+    let outputFilePath =
         (argv.outputFile as string) ||
         config.story.title.replace(/[ -]/g, "_").replace(/[^a-zA-Z0-9_]/g, "") +
+            (argv.testFrom ? "_from_" + argv.testFrom : "") +
             ".html";
 
     let [allUserSnippetsSource, allUserFiles] =
@@ -117,6 +118,19 @@ export function compileProject(argv: yargs.Arguments): void {
 
         for (const k in snippetElem.attr())
             snippetDataElem.attr("data-" + k, snippetElem.get(0)?.attribs[k]);
+
+        if (argv.testFrom) {
+            if (snippetDataElem.attr("data-name") === argv.testFrom) {
+                console.log(
+                    `Overriding starting snippet to ${green(
+                        argv.testFrom.toString()
+                    )} as requested.`
+                );
+                snippetDataElem.attr("data-start", "");
+            } else {
+                snippetDataElem.removeAttr("data-start");
+            }
+        }
 
         // snippet-specific code and style
         injectSnippetCodeAndStyle(snippetDataElem, projectRootPath);
