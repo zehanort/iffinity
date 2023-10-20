@@ -1,7 +1,7 @@
 import yargs from "yargs";
 import fs from "fs";
 import path from "path";
-import cheerio from "cheerio";
+import * as cheerio from "cheerio";
 import { readAllHtmlAndEjsFilesUnder } from "./crawler";
 import { printTree } from "flexible-tree-printer";
 import { green, bold, yellowBright, blue, yellow } from "ansis/colors";

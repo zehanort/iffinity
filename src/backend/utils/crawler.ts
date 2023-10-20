@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import cheerio from "cheerio";
+import * as cheerio from "cheerio";
 
 // search all the tree under the project root
 // for any file that ends with .html or .ejs
