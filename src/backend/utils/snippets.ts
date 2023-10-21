@@ -19,8 +19,12 @@ export function injectSnippetCodeAndStyle(
             );
             if (snippetCodeContent)
                 snippetDataElem.prepend(
-                    `<!-- code for snippet "${snippetCodeFile}" (file: "${snippetCodeFile}) -->` +
-                        `\n<%\n${encode(snippetCodeContent)}\n%>\n\n`
+                    "<%\n" +
+                        "/***\n" +
+                        ` * code for snippet "${snippetCodeFile}" (file: "${snippetCodeFile}")\n` +
+                        " ***/\n\n" +
+                        `${encode(snippetCodeContent)}\n` +
+                        "%>\n\n"
                 );
         }
     }
@@ -37,8 +41,12 @@ export function injectSnippetCodeAndStyle(
             );
             if (snippetStyleContent)
                 snippetDataElem.prepend(
-                    `<!-- style for snippet "${snippetStyleFile}" (file: "${snippetStyleFile}") -->` +
-                        `\n<style>\n${snippetStyleContent}\n</style>\n\n`
+                    "<style>\n" +
+                        "/***\n" +
+                        ` * style for snippet "${snippetStyleFile}" (file: "${snippetStyleFile}")\n` +
+                        " ***/\n\n" +
+                        `${snippetStyleContent}\n` +
+                        "</style>\n\n"
                 );
         }
     }
