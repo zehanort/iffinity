@@ -22,7 +22,7 @@ body {
     </div>
 
 
-<div id="iff-story-data" data-title="multfiles" data-author-name="Sotiris Niarchos" data-author-email="sot.niarchos@gmail.com" data-version="1.0.0" hidden=""><div class="iff-snippet-data" data-name="Multiple Files" data-tags="A C" data-scripts="scripts/snippet1.js scripts/snippet2.js scripts/snippet3.js" data-start="">&lt;%
+<div id="iff-story-data" data-title="multfiles" data-author-name="Sotiris Niarchos" data-author-email="sot.niarchos@gmail.com" data-version="1.0.0" hidden=""><div class="iff-snippet-data" data-name="Multiple Files" data-tags="A C" data-scripts="/home/sotiris/projects/intfiction/iffinity/examples/multfiles/scripts/snippet1.js;/home/sotiris/projects/intfiction/iffinity/examples/multfiles/scripts/snippet2.js;/home/sotiris/projects/intfiction/iffinity/examples/multfiles/scripts/snippet3.js" data-start="">&lt;%
 $(function () {
     $("#iff-snippet").append("&lt;p&gt;This should appear FIRST&lt;/p&gt;");
 });
@@ -58,7 +58,7 @@ z = 100;
 
 z += 100;
 s.z = z;
- %&gt;<!-- code for snippet "scripts/snippet1.js" (file: "scripts/snippet1.js) -->
+ %&gt;<!-- code for snippet "/home/sotiris/projects/intfiction/iffinity/examples/multfiles/scripts/snippet1.js" (file: "/home/sotiris/projects/intfiction/iffinity/examples/multfiles/scripts/snippet1.js) -->
 &lt;%
 $(function () {
     $("#iff-snippet").append("&lt;p&gt;This should appear SEVENTH&lt;/p&gt;");
@@ -68,7 +68,7 @@ w = 1000;
 
 %&gt;
 
-<!-- code for snippet "scripts/snippet2.js" (file: "scripts/snippet2.js) -->
+<!-- code for snippet "/home/sotiris/projects/intfiction/iffinity/examples/multfiles/scripts/snippet2.js" (file: "/home/sotiris/projects/intfiction/iffinity/examples/multfiles/scripts/snippet2.js) -->
 &lt;%
 $(function () {
     $("#iff-snippet").append("&lt;p&gt;This should appear EIGHTH&lt;/p&gt;");
@@ -78,7 +78,7 @@ w += 1000;
 
 %&gt;
 
-<!-- code for snippet "scripts/snippet3.js" (file: "scripts/snippet3.js) -->
+<!-- code for snippet "/home/sotiris/projects/intfiction/iffinity/examples/multfiles/scripts/snippet3.js" (file: "/home/sotiris/projects/intfiction/iffinity/examples/multfiles/scripts/snippet3.js) -->
 &lt;%
 $(function () {
     $("#iff-snippet").append("&lt;p&gt;This should appear NINTH&lt;/p&gt;");
@@ -90,7 +90,10 @@ s.w = w;
 %&gt;
 
 
-    <p>This is an example to test the usage of multiple files (arrays) in the config file.</p>
+    <p>
+        This is an example to test the usage of multiple files (arrays) in the
+        config file.
+    </p>
     <p>X should be 3 (story scripts) -&gt; X = &lt;%= s.x %&gt;</p>
     <p>Y should be 30 (global scripts) -&gt; Y = &lt;%= s.y %&gt;</p>
     <p>Z should be 200 (tag scripts) -&gt; Z = &lt;%= s.z %&gt;</p>
