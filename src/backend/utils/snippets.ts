@@ -8,10 +8,7 @@ export function injectSnippetCodeAndStyle(
     projectRootPath: string
 ) {
     const snippetCodeFiles =
-        (snippetDataElem.data("scripts") as string)
-            ?.slice(1, -1)
-            ?.split("' '")
-            ?.map((scriptPath) => scriptPath.trim()) || [];
+        (snippetDataElem.data("scripts") as string)?.split(";") || [];
     if (snippetCodeFiles.length > 0) {
         for (const snippetCodeFile of snippetCodeFiles.reverse()) {
             const snippetCodeContent = fs.readFileSync(
@@ -29,10 +26,7 @@ export function injectSnippetCodeAndStyle(
     }
 
     const snippetStyleFiles =
-        (snippetDataElem.data("styles") as string)
-            ?.slice(1, -1)
-            ?.split("' '")
-            ?.map((stylePath) => stylePath.trim()) || [];
+        (snippetDataElem.data("styles") as string)?.split(";") || [];
     if (snippetStyleFiles.length > 0) {
         for (const snippetStyleFile of snippetStyleFiles.reverse()) {
             const snippetStyleContent = fs.readFileSync(

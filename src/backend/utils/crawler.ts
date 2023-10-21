@@ -5,7 +5,7 @@ import * as cheerio from "cheerio";
 // attempts to resolve the path relative to the snippet file
 function resolveSnippetFilePath(filePath: string, snippetPath: string): string {
     let resolvedPath = path.resolve(path.dirname(snippetPath), filePath);
-    return fs.existsSync(resolvedPath) ? `'${resolvedPath}'` : `'${filePath}'`;
+    return fs.existsSync(resolvedPath) ? resolvedPath : filePath;
 }
 
 // search all the tree under the project root
@@ -39,22 +39,28 @@ export function readAllHtmlAndEjsFilesUnder(dir: string): [string, string[]] {
                             "scripts",
                             snippetElem
                                 .attr("scripts")
-                                ?.split(/ +/)
+                                ?.split(";")
                                 .map((scriptPath) =>
-                                    resolveSnippetFilePath(scriptPath, filePath)
+                                    resolveSnippetFilePath(
+                                        scriptPath.trim(),
+                                        filePath
+                                    )
                                 )
-                                ?.join(" ")
+                                .join(";")
                         );
                     if (snippetElem.attr("styles") !== undefined)
                         snippetElem.attr(
                             "styles",
                             snippetElem
                                 .attr("styles")
-                                ?.split(/ +/)
+                                ?.split(";")
                                 .map((stylePath) =>
-                                    resolveSnippetFilePath(stylePath, filePath)
+                                    resolveSnippetFilePath(
+                                        stylePath.trim(),
+                                        filePath
+                                    )
                                 )
-                                ?.join(" ")
+                                .join(";")
                         );
                 });
                 allContent += $.html();

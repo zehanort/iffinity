@@ -132,12 +132,27 @@ export function compileProject(argv: yargs.Arguments): void {
             }
         }
 
-        // snippet-specific code and style
-        injectSnippetCodeAndStyle(snippetDataElem, projectRootPath);
+        try {
+            // snippet-specific code and style
+            injectSnippetCodeAndStyle(snippetDataElem, projectRootPath);
 
-        // tag-related code and style (it is prepended
-        // so it will go before the snippet-specific code and style)
-        injectTagsScriptsAndStyles(snippetDataElem, config, projectRootPath);
+            // tag-related code and style (it is prepended
+            // so it will go before the snippet-specific code and style)
+            injectTagsScriptsAndStyles(
+                snippetDataElem,
+                config,
+                projectRootPath
+            );
+        } catch (e) {
+            console.error(
+                `${red("Error")} while processing snippet ${red(
+                    snippetDataElem.data("name") as string
+                )}:`
+            );
+            console.error(" - " + (e as Error).message);
+            console.error("Aborting.");
+            process.exit(1);
+        }
 
         storyDataElem.append(snippetDataElem);
     });
