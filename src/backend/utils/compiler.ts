@@ -117,7 +117,7 @@ export function compileProject(argv: yargs.Arguments): void {
         snippetDataElem.html(snippetElem.html() ?? "");
 
         for (const k in snippetElem.attr())
-            snippetDataElem.data(k, snippetElem.attr(k));
+            snippetDataElem.attr("data-" + k, snippetElem.attr(k));
 
         if (argv.testFrom) {
             if (snippetDataElem.data("name") === argv.testFrom) {
