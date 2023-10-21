@@ -8,11 +8,16 @@ export function injectSnippetCodeAndStyle(
     projectRootPath: string
 ) {
     const snippetCodeFiles =
-        (snippetDataElem.data("scripts") as string)?.split(" ") || [];
+        (snippetDataElem.data("scripts") as string)
+            ?.slice(1, -1)
+            ?.split("' '")
+            ?.map((scriptPath) => scriptPath.trim()) || [];
     if (snippetCodeFiles.length > 0) {
         for (const snippetCodeFile of snippetCodeFiles.reverse()) {
             const snippetCodeContent = fs.readFileSync(
-                path.join(projectRootPath, snippetCodeFile.trim()),
+                path.isAbsolute(snippetCodeFile)
+                    ? snippetCodeFile
+                    : path.join(projectRootPath, snippetCodeFile.trim()),
                 "utf8"
             );
             if (snippetCodeContent)
@@ -24,11 +29,16 @@ export function injectSnippetCodeAndStyle(
     }
 
     const snippetStyleFiles =
-        (snippetDataElem.data("styles") as string)?.split(" ") || [];
+        (snippetDataElem.data("styles") as string)
+            ?.slice(1, -1)
+            ?.split("' '")
+            ?.map((stylePath) => stylePath.trim()) || [];
     if (snippetStyleFiles.length > 0) {
         for (const snippetStyleFile of snippetStyleFiles.reverse()) {
             const snippetStyleContent = fs.readFileSync(
-                path.join(projectRootPath, snippetStyleFile.trim()),
+                path.isAbsolute(snippetStyleFile)
+                    ? snippetStyleFile
+                    : path.join(projectRootPath, snippetStyleFile.trim()),
                 "utf8"
             );
             if (snippetStyleContent)
