@@ -117,10 +117,10 @@ export function compileProject(argv: yargs.Arguments): void {
         snippetDataElem.html(snippetElem.html() ?? "");
 
         for (const k in snippetElem.attr())
-            snippetDataElem.attr("data-" + k, snippetElem.get(0)?.attribs[k]);
+            snippetDataElem.data(k, snippetElem.attr(k));
 
         if (argv.testFrom) {
-            if (snippetDataElem.attr("data-name") === argv.testFrom) {
+            if (snippetDataElem.data("name") === argv.testFrom) {
                 console.log(
                     `Overriding starting snippet to ${green(
                         argv.testFrom.toString()
