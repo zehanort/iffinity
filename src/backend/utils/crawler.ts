@@ -1,11 +1,112 @@
 import fs from "fs";
 import path from "path";
 import * as cheerio from "cheerio";
+import { bold, red, yellow } from "ansis/colors";
+
+function compileSnippetLinks(match: string, linkData: string): string {
+    const parts = linkData
+        .split("|")
+        .map((s) => s.trim().replace(/\n+ */g, " "));
+    if (parts.length === 1) {
+        // case [[<snippet name>]]
+        return `<a href="javascript:void(0)" data-snippet="${parts[0]}">${parts[0]}</a>`;
+    } else if (parts.length === 2) {
+        // case [[<text>|<snippet name>]]
+        return `<a href="javascript:void(0)" data-snippet="${parts[1]}">${parts[0]}</a>`;
+    } else if (parts.length === 3) {
+        // case [[<snippet name>||<id/classes>]]
+        if (parts[1] !== "") {
+            console.error(
+                `${red("Error:")} invalid syntax for snippet link ${yellow(
+                    match
+                )}`
+            );
+            console.error(
+                "\tWhen providing an id for the link, it is the callback's responsibility to show"
+            );
+            console.error(
+                "\ta different snippet via the story.showSnippet() method, if so desired."
+            );
+            console.error("Aborting.");
+            process.exit(1);
+        }
+        // break second part into id(s) and class(es)
+        const ids = (parts[2].match(/#[\w-]+/g) || []) as string[];
+        const classes = (parts[2].match(/\.[\w-]+/g) || []) as string[];
+        if (ids.length > 1) {
+            console.warn(
+                `${yellow("Warning:")} snippet link ${yellow(
+                    match
+                )} has more than one id.`
+            );
+            console.warn(
+                `\tWill only use the first one (${bold(ids[0].slice(1))}).`
+            );
+        }
+        // return the link
+        return `<a href="javascript:void(0)" ${
+            ids.length > 0 ? `id="${ids[0].slice(1)}"` : ""
+        } ${
+            classes.length > 0
+                ? `class="${classes.map((c) => c.slice(1)).join(" ")}"`
+                : ""
+        }>${parts[0]}</a>`;
+    } else {
+        // problem raise an error
+        console.error("Error parsing the input template file.");
+        return "";
+    }
+}
+
+function compileIdsAndClassesShorthands(
+    match: string,
+    tag: string,
+    attributes: string
+): string {
+    const id = attributes.match(/#([\w-]+)/);
+    const classes = attributes.match(/\.[\w-]+/g) || [];
+    const attrs = [];
+    if (!id && classes.length === 0) return match;
+    if (id) attrs.push(`id="${id.slice(1)}"`);
+    if (classes.length > 0)
+        attrs.push(`class="${classes.map((c) => c.slice(1)).join(" ")}"`);
+    return `<${tag} ${attrs.join(" ")}`;
+}
 
 // attempts to resolve the path relative to the snippet file
 function resolveSnippetFilePath(filePath: string, snippetPath: string): string {
     let resolvedPath = path.resolve(path.dirname(snippetPath), filePath);
     return fs.existsSync(resolvedPath) ? resolvedPath : filePath;
+}
+
+// maps the resolveSnippetFilePath function to the "scripts" and
+// "styles" attributes to resolve any possibly relative paths to the snippet
+function resolveSnippetFilePaths(
+    snippet: cheerio.Cheerio<cheerio.Element>,
+    filePath: string
+) {
+    if (snippet.attr("scripts") !== undefined)
+        snippet.attr(
+            "scripts",
+            snippet
+                .attr("scripts")
+                ?.split(";")
+                .map((scriptPath) =>
+                    resolveSnippetFilePath(scriptPath.trim(), filePath)
+                )
+                .join(";")
+        );
+    if (snippet.attr("styles") !== undefined)
+        snippet.attr(
+            "styles",
+            snippet
+                .attr("styles")
+                ?.split(";")
+                .map((stylePath) =>
+                    resolveSnippetFilePath(stylePath.trim(), filePath)
+                )
+                .join(";")
+        );
 }
 
 // search all the tree under the project root
@@ -28,41 +129,18 @@ export function readAllHtmlAndEjsFilesUnder(dir: string): [string, string[]] {
             // If it's a file, check the extension
             const extname = path.extname(filePath);
             if ([".html", ".htm", ".ejs"].includes(extname)) {
-                const $ = cheerio.load(fs.readFileSync(filePath, "utf8"));
+                const src = fs
+                    .readFileSync(filePath, "utf8")
+                    .replace(/\[\[([^\]]*)\]\]/g, compileSnippetLinks)
+                    .replace(
+                        /<([\w-]+)([^>]*?)(?=[> ])/g,
+                        compileIdsAndClassesShorthands
+                    );
+                const $ = cheerio.load(src);
                 if ($("snippet").length === 0) continue;
-                $("snippet").each((_, snippet) => {
-                    const snippetElem = $(snippet);
-                    // map the resolveSnippetFilePath function to the "scripts" and
-                    // "styles" attributes to resolve any possibly relative paths to the snippet
-                    if (snippetElem.attr("scripts") !== undefined)
-                        snippetElem.attr(
-                            "scripts",
-                            snippetElem
-                                .attr("scripts")
-                                ?.split(";")
-                                .map((scriptPath) =>
-                                    resolveSnippetFilePath(
-                                        scriptPath.trim(),
-                                        filePath
-                                    )
-                                )
-                                .join(";")
-                        );
-                    if (snippetElem.attr("styles") !== undefined)
-                        snippetElem.attr(
-                            "styles",
-                            snippetElem
-                                .attr("styles")
-                                ?.split(";")
-                                .map((stylePath) =>
-                                    resolveSnippetFilePath(
-                                        stylePath.trim(),
-                                        filePath
-                                    )
-                                )
-                                .join(";")
-                        );
-                });
+                $("snippet").each((_, snippet) =>
+                    resolveSnippetFilePaths($(snippet), filePath)
+                );
                 allContent += $.html();
                 snippetFiles.push(filePath);
             }

@@ -7,7 +7,7 @@ import { loadConfigFile } from "./config";
 import { injectTagsScriptsAndStyles } from "./tags";
 import { injectSnippetCodeAndStyle } from "./snippets";
 import yargs from "yargs";
-import { bold, green, red, yellow } from "ansis/colors";
+import { green, red } from "ansis/colors";
 import { encode } from "html-entities";
 import { asArray, concatFileContents } from "../types/Config";
 
@@ -20,70 +20,10 @@ export function compileProject(argv: yargs.Arguments): void {
             (argv.testFrom ? "_from_" + argv.testFrom : "") +
             ".html";
 
-    let [allUserSnippetsSource, allUserFiles] =
+    let [allUserSource, allUserFiles] =
         readAllHtmlAndEjsFilesUnder(projectRootPath);
 
-    const processedUserTemplate = allUserSnippetsSource.replace(
-        /\[\[([^\]]*)\]\]/g,
-        (match, p1: string) => {
-            const parts = p1
-                .split("|")
-                .map((s) => s.trim().replace(/\n+ */g, " "));
-            if (parts.length === 1) {
-                // case [[<snippet name>]]
-                return `<a href="javascript:void(0)" data-snippet="${parts[0]}">${parts[0]}</a>`;
-            } else if (parts.length === 2) {
-                // case [[<text>|<snippet name>]]
-                return `<a href="javascript:void(0)" data-snippet="${parts[1]}">${parts[0]}</a>`;
-            } else if (parts.length === 3) {
-                // case [[<snippet name>||<id/classes>]]
-                if (parts[1] !== "") {
-                    console.error(
-                        `${red(
-                            "Error:"
-                        )} invalid syntax for snippet link ${yellow(match)}`
-                    );
-                    console.error(
-                        "\tWhen providing an id for the link, it is the callback's responsibility to show"
-                    );
-                    console.error(
-                        "\ta different snippet via the story.showSnippet() method, if so desired."
-                    );
-                    console.error("Aborting.");
-                    process.exit(1);
-                }
-                // break second part into id(s) and class(es)
-                const ids = (parts[2].match(/#[\w-]+/g) || []) as string[];
-                const classes = (parts[2].match(/\.[\w-]+/g) || []) as string[];
-                if (ids.length > 1) {
-                    console.warn(
-                        `${yellow("Warning:")} snippet link ${yellow(
-                            match
-                        )} has more than one id.`
-                    );
-                    console.warn(
-                        `\tWill only use the first one (${bold(
-                            ids[0].slice(1)
-                        )}).`
-                    );
-                }
-                // return the link
-                return `<a href="javascript:void(0)" ${
-                    ids.length > 0 ? `id="${ids[0].slice(1)}"` : ""
-                } ${
-                    classes.length > 0
-                        ? `class="${classes.map((c) => c.slice(1)).join(" ")}"`
-                        : ""
-                }>${parts[0]}</a>`;
-            } else {
-                // problem raise an error
-                console.error("Error parsing the input template file.");
-                return "";
-            }
-        }
-    );
-
-    const $ = cheerio.load(processedUserTemplate);
+    const $ = cheerio.load(allUserSource);
     const userSnippets = $("snippet");
 
     performInitialSanityChecks(userSnippets, allUserFiles.length);
