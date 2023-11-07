@@ -108,6 +108,7 @@ export function compileProject(argv: yargs.Arguments): void {
     outputHTML("title").text(config.story.title);
 
     let storyDataElem = $('<div id="iff-story-data"></div>');
+    let foundTestingSnippet = false;
     userSnippets.each((_, snippet) => {
         const snippetElem = $(snippet);
 
@@ -127,6 +128,7 @@ export function compileProject(argv: yargs.Arguments): void {
                     )} as requested.`
                 );
                 snippetDataElem.attr("data-start", "");
+                foundTestingSnippet = true;
             } else {
                 snippetDataElem.removeAttr("data-start");
             }
@@ -156,6 +158,16 @@ export function compileProject(argv: yargs.Arguments): void {
 
         storyDataElem.append(snippetDataElem);
     });
+
+    if (argv.testFrom && !foundTestingSnippet) {
+        console.error(
+            `${red("Error:")} snippet ${red(
+                argv.testFrom.toString()
+            )} (requested as testing starting point) not found.`
+        );
+        console.error("Aborting.");
+        process.exit(1);
+    }
 
     // save title, author and version in the story data
     storyDataElem.attr("data-title", config.story.title);
