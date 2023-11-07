@@ -116,6 +116,8 @@ export function compileProject(argv: yargs.Arguments): void {
             '<div class="iff-snippet-data"></div>'
         ) as cheerio.Cheerio<cheerio.Element>;
         snippetDataElem.html(snippetElem.html() ?? "");
+        // remove all <iff-link> elements from the snippet
+        snippetDataElem.find("iff-link").remove();
 
         for (const k in snippetElem.attr())
             snippetDataElem.attr("data-" + k, snippetElem.attr(k));

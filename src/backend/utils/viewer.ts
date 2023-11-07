@@ -148,6 +148,13 @@ function buildSnippetGraph(snippetFiles: string[]): any {
                 // case [[<text>|<snippet name>|<id>]] is not supported
                 // case [[<text>||<id>]] is indecisive whether it is a link or not
             }
+            // also search for <iff-link> elements inside the snippet
+            $(snippet)
+                .find("iff-link")
+                .each((_, link) => {
+                    const linkedSnippet = $(link).text();
+                    if (linkedSnippet) linkedSnippets.push(linkedSnippet);
+                });
 
             graph.nodes.push({
                 data: {
