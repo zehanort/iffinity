@@ -7,11 +7,11 @@ import { loadConfigFile } from "./config";
 import { injectTagsScriptsAndStyles } from "./tags";
 import { injectSnippetCodeAndStyle } from "./snippets";
 import yargs from "yargs";
-import { green, red } from "ansis/colors";
+import { bold, green, red } from "ansis/colors";
 import { encode } from "html-entities";
 import { asArray, concatFileContents } from "../types/Config";
 
-export function compileProject(argv: yargs.Arguments): void {
+export async function compileProject(argv: yargs.Arguments): Promise<void> {
     const projectRootPath = (argv.projectRoot as string) || process.cwd();
     const config = loadConfigFile(argv);
     let outputFilePath =
@@ -20,8 +20,9 @@ export function compileProject(argv: yargs.Arguments): void {
             (argv.testFrom ? "_from_" + argv.testFrom : "") +
             ".html";
 
-    let [allUserSource, allUserFiles] =
-        readAllHtmlAndEjsFilesUnder(projectRootPath);
+    let [allUserSource, allUserFiles] = await readAllHtmlAndEjsFilesUnder(
+        projectRootPath
+    );
 
     const $ = cheerio.load(allUserSource);
     const userSnippets = $("snippet");
@@ -217,6 +218,6 @@ export function compileProject(argv: yargs.Arguments): void {
             return;
         }
 
-        console.log(`Rendered game saved to ${outputFilePath}. Enjoy!`);
+        console.log(`Rendered game saved to ${bold(outputFilePath)}. Enjoy!`);
     });
 }

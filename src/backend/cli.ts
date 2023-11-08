@@ -65,7 +65,7 @@ yargs
                     return true;
                 });
         },
-        compileProject
+        async (argv) => await compileProject(argv)
     )
     .command(
         "init",

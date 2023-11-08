@@ -259,7 +259,9 @@ export async function showProjectDetails(argv: yargs.Arguments): Promise<void> {
     const projectRootPath = (argv.projectRoot as string) || process.cwd();
     const config = loadConfigFile(argv, true, false);
 
-    const [_, snippetFiles] = readAllHtmlAndEjsFilesUnder(projectRootPath);
+    const [_, snippetFiles] = await readAllHtmlAndEjsFilesUnder(
+        projectRootPath
+    );
 
     // option -s
     if (argv.snippets) {

@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import * as cheerio from "cheerio";
 import { bold, red, yellow } from "ansis/colors";
+import { HtmlValidate, Result } from "html-validate";
 
 function compileSnippetLinks(match: string, linkData: string): string {
     const parts = linkData
@@ -112,8 +113,10 @@ function resolveSnippetFilePaths(
 // search all the tree under the project root
 // for any file that ends with .html or .ejs
 // and parse each file to find all the snippets
-export function readAllHtmlAndEjsFilesUnder(dir: string): [string, string[]] {
-    let allContent: string = "";
+async function _readAllHtmlAndEjsFilesUnder(
+    dir: string
+): Promise<[string[], string[]]> {
+    let allContent: string[] = [];
     let snippetFiles: string[] = [];
     const files = fs.readdirSync(dir);
 
@@ -122,8 +125,8 @@ export function readAllHtmlAndEjsFilesUnder(dir: string): [string, string[]] {
 
         if (fs.statSync(filePath).isDirectory()) {
             // If it's a directory, recurse into it
-            const subtreeRes = readAllHtmlAndEjsFilesUnder(filePath);
-            allContent += subtreeRes[0];
+            const subtreeRes = await _readAllHtmlAndEjsFilesUnder(filePath);
+            allContent = allContent.concat(subtreeRes[0]);
             snippetFiles = snippetFiles.concat(subtreeRes[1]);
         } else {
             // If it's a file, check the extension
@@ -136,16 +139,73 @@ export function readAllHtmlAndEjsFilesUnder(dir: string): [string, string[]] {
                         /<([\w-]+)([^>]*?)(?=[> ])/g,
                         compileIdsAndClassesShorthands
                     );
-                const $ = cheerio.load(src);
-                if ($("snippet").length === 0) continue;
-                $("snippet").each((_, snippet) =>
-                    resolveSnippetFilePaths($(snippet), filePath)
-                );
-                allContent += $.html();
+                allContent.push(src);
                 snippetFiles.push(filePath);
             }
         }
     }
 
     return [allContent, snippetFiles];
+}
+
+export async function readAllHtmlAndEjsFilesUnder(
+    dir: string
+): Promise<[string, string[]]> {
+    const [allContent, snippetFiles] = await _readAllHtmlAndEjsFilesUnder(dir);
+
+    const htmlvalidator = new HtmlValidate({
+        extends: ["html-validate:recommended"],
+        rules: {
+            "element-name": ["error", { whitelist: ["snippet"] }],
+            "void-style": "off", // for self-closing tags
+            "no-raw-characters": "off", // for ejs tags
+        },
+    });
+
+    // validate all the HTML files
+    // defer check for invalid HTML files for later
+    // in order to filter out the output HTML
+    // (or any HTML that has no snippets in it)
+    const invalidHtmlFileIDs = new Map<number, Result[]>();
+    for (let i = 0; i < allContent.length; i++) {
+        const valres = await htmlvalidator.validateString(allContent[i]);
+        if (!valres.valid) invalidHtmlFileIDs.set(i, valres.results);
+    }
+
+    let processedContent = "";
+    const processedSnippetFiles = [];
+    let foundInvalidSrcHTML = false;
+    for (let i = 0; i < snippetFiles.length; i++) {
+        const src = allContent[i];
+        const filePath = snippetFiles[i];
+        const $ = cheerio.load(src, null, false);
+        if ($("snippet").length === 0) continue;
+        if (invalidHtmlFileIDs.has(i)) {
+            console.error(
+                `${red("Error:")} invalid HTML in ${yellow(filePath)}`
+            );
+            for (const res of invalidHtmlFileIDs.get(i)!) {
+                for (const msg of res.messages)
+                    console.error(
+                        `\t${msg.line}:${msg.column} ${msg.message}` +
+                            (msg.ruleUrl
+                                ? ` (See ${msg.ruleUrl} for more info)`
+                                : ` (${msg.ruleId}})`)
+                    );
+            }
+            foundInvalidSrcHTML = true;
+        }
+        $("snippet").each((_, snippet) =>
+            resolveSnippetFilePaths($(snippet), filePath)
+        );
+        processedContent += "\n" + $.html();
+        processedSnippetFiles.push(filePath);
+    }
+
+    if (foundInvalidSrcHTML) {
+        console.error("Aborting.");
+        process.exit(1);
+    }
+
+    return [processedContent, processedSnippetFiles];
 }
