@@ -21,7 +21,9 @@ export function injectSnippetCodeAndStyle(
                 snippetDataElem.prepend(
                     "<%\n" +
                         "/***\n" +
-                        ` * code for snippet "${snippetCodeFile}" (file: "${snippetCodeFile}")\n` +
+                        ` * code for snippet "${snippetDataElem.data(
+                            "name"
+                        )}" (file: "${snippetCodeFile}")\n` +
                         " ***/\n\n" +
                         `${encode(snippetCodeContent)}\n` +
                         "%>\n\n"
@@ -43,7 +45,9 @@ export function injectSnippetCodeAndStyle(
                 snippetDataElem.prepend(
                     "<style>\n" +
                         "/***\n" +
-                        ` * style for snippet "${snippetStyleFile}" (file: "${snippetStyleFile}")\n` +
+                        ` * style for snippet "${snippetDataElem.data(
+                            "name"
+                        )}" (file: "${snippetStyleFile}")\n` +
                         " ***/\n\n" +
                         `${snippetStyleContent}\n` +
                         "</style>\n\n"
