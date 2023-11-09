@@ -16,9 +16,9 @@ export async function compileProject(argv: yargs.Arguments): Promise<void> {
     const config = loadConfigFile(argv);
     let outputFilePath =
         (argv.outputFile as string) ||
-        config.story.title.replace(/[ -]/g, "_").replace(/[^a-zA-Z0-9_]/g, "") +
-            (argv.testFrom ? "_from_" + argv.testFrom : "") +
-            ".html";
+        (config.story.title + (argv.testFrom ? "_from_" + argv.testFrom : ""))
+            .replace(/[ -]/g, "_")
+            .replace(/[^a-zA-Z0-9_]/g, "") + ".html";
 
     let [allUserSource, allUserFiles] = await readAllHtmlAndEjsFilesUnder(
         projectRootPath
