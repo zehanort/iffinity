@@ -159,6 +159,7 @@ export async function readAllHtmlAndEjsFilesUnder(
             "element-name": ["error", { whitelist: ["snippet"] }],
             "void-style": "off", // for self-closing tags
             "no-raw-characters": "off", // for ejs tags
+            "no-inline-style": "off", // too restrictive
         },
     });
 
