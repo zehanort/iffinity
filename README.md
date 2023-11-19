@@ -1,4 +1,7 @@
-# iffinity
+<picture>
+  <source srcset="https://github.com/zehanort/iffinity/blob/main/logos/PNGs/white-perimeter-filled-box-logo.png" media="(prefers-color-scheme: dark)">
+  <img src="https://github.com/zehanort/iffinity/blob/main/logos/PNGs/black-perimeter-filled-box-logo.png" alt="iffinity">
+</picture>
 
 [![npm version](https://badge.fury.io/js/iffinity.svg)](https://badge.fury.io/js/iffinity)
  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
