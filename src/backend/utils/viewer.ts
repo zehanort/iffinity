@@ -260,7 +260,8 @@ export async function showProjectDetails(argv: yargs.Arguments): Promise<void> {
     const config = loadConfigFile(argv, true, false);
 
     const [_, snippetFiles] = await readAllHtmlAndEjsFilesUnder(
-        projectRootPath
+        projectRootPath,
+        config
     );
 
     // option -s

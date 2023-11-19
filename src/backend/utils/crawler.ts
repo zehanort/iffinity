@@ -3,6 +3,7 @@ import path from "path";
 import * as cheerio from "cheerio";
 import { bold, red, yellow } from "ansis/colors";
 import { HtmlValidate, Result } from "html-validate";
+import { Config } from "../types/Config";
 
 function compileSnippetLinks(match: string, linkData: string): string {
     const parts = linkData
@@ -149,18 +150,26 @@ async function _readAllHtmlAndEjsFilesUnder(
 }
 
 export async function readAllHtmlAndEjsFilesUnder(
-    dir: string
+    dir: string,
+    config: Config
 ): Promise<[string, string[]]> {
     const [allContent, snippetFiles] = await _readAllHtmlAndEjsFilesUnder(dir);
 
+    // build the HTML validator
+    const valrules: Record<string, any> = {
+        "element-name": ["error", { whitelist: ["snippet"] }],
+        "void-style": "off", // for self-closing tags
+        "no-raw-characters": "off", // for ejs tags
+        "no-inline-style": "off", // too restrictive
+    };
+
+    if (config.validation)
+        for (const [key, val] of Object.entries(config.validation))
+            valrules[key] = val;
+
     const htmlvalidator = new HtmlValidate({
         extends: ["html-validate:recommended"],
-        rules: {
-            "element-name": ["error", { whitelist: ["snippet"] }],
-            "void-style": "off", // for self-closing tags
-            "no-raw-characters": "off", // for ejs tags
-            "no-inline-style": "off", // too restrictive
-        },
+        rules: valrules,
     });
 
     // validate all the HTML files

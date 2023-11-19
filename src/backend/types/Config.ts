@@ -39,6 +39,7 @@ export type Config = {
         version: string;
         repository?: { type: string; url: string };
     };
+
     libraries?: {
         scripts?: StringOrStringArray;
         styles?: StringOrStringArray;
@@ -54,4 +55,6 @@ export type Config = {
         story?: StringOrStringArray;
         tags?: TagRule[];
     };
+
+    validation?: Record<string, any>;
 };

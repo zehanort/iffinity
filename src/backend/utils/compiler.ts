@@ -21,7 +21,8 @@ export async function compileProject(argv: yargs.Arguments): Promise<void> {
             .replace(/[^a-zA-Z0-9_]/g, "") + ".html";
 
     let [allUserSource, allUserFiles] = await readAllHtmlAndEjsFilesUnder(
-        projectRootPath
+        projectRootPath,
+        config
     );
 
     const $ = cheerio.load(allUserSource);
