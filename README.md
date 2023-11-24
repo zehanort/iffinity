@@ -108,7 +108,7 @@ $
 
 As you can see at the bottom of the output, a template project is created by default. You can start with that and modify it to your liking, or you can start from scratch. You can find the template project that is being created in the [examples/simple](https://github.com/zehanort/iffinity/tree/main/examples/simple) directory of this repository. It is a single file, namely [examples/simple/example.ejs](examples/simple/example.ejs), and it contains the following code:
 
-```html
+```ejs
 <snippet name="Start" start>
     <% if (!s.WEALTH) s.WEALTH = 'poor'; %>
 
