@@ -3,4 +3,4 @@ title: Home
 layout: home
 ---
 
-{% include_relative README.md %}
+{% include_relative README_copy.md %}

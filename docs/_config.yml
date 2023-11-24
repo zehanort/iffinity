@@ -1,11 +1,12 @@
-title: iffinity documentation
+title: iffinity docs
 theme: just-the-docs
 
 aux_links:
     GitHub Repo: https://github.com/zehanort/iffinity
 
-url: https://github.com/zehanort/iffinity
+url: https://zehanort.github.io/iffinity
+
+color_scheme: dark
 
 logo: "/assets/images/logo-dark-theme.png"
 favicon_ico: "/assets/images/favicon.ico"
-color_scheme: dark
