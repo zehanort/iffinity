@@ -1,6 +1,8 @@
-title: iffinity
-description: The iffinity engine documentation
+title: iffinity documentation
 theme: just-the-docs
+
+aux_links:
+    GitHub Repo: https://github.com/zehanort/iffinity
 
 logo: "/assets/images/logo-dark-theme.png"
 favicon_ico: "/assets/images/favicon.ico"
