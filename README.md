@@ -1,6 +1,6 @@
 <picture>
-  <source srcset="https://github.com/zehanort/iffinity/blob/main/logos/PNGs/white-perimeter-filled-box-logo.png" media="(prefers-color-scheme: dark)">
-  <img src="https://github.com/zehanort/iffinity/blob/main/logos/PNGs/black-perimeter-filled-box-logo.png" alt="iffinity">
+  <source srcset="https://raw.githubusercontent.com/zehanort/iffinity/main/logos/PNGs/black-perimeter-filled-box-logo.png" media="(prefers-color-scheme: light)">
+  <img src="https://raw.githubusercontent.com/zehanort/iffinity/main/logos/PNGs/white-perimeter-filled-box-logo.png" alt="iffinity">
 </picture>
 
 [![npm version](https://badge.fury.io/js/iffinity.svg)](https://badge.fury.io/js/iffinity)
