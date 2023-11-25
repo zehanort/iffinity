@@ -5,6 +5,11 @@ permalink: /scripts-styles/
 nav_order: 7
 ---
 
+# {{ page.title }}
+
+* TOC
+{:toc}
+
 On of the greatest strengths of the iffinity engine is that it allows the author to organize their scripts and styles however they desire, using the configuration file.
 
 iffinity features a hierarchical system to organize the code of a project. There are 4 levels/types of scripts/styles. With the exception of the libraries, all other levels have access to the [author API]({{ site.baseurl }}/author-api/), as well as to jQuery and EJS. Higher to lower, these levels are the following:

@@ -5,6 +5,11 @@ permalink: /author-api/
 nav_order: 6
 ---
 
+# {{ page.title }}
+
+* TOC
+{:toc}
+
 iffinity exposes an API to the author's JavaScript code, both inside EJS segments, as well as to the [story, global and snippet scripts]({{ site.baseurl }}/scripts-styles/).
 
 As explained previously, any code you write inside EJS tags has access to the following variables created by iffinity:

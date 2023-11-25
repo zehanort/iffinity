@@ -5,6 +5,11 @@ permalink: /config/
 nav_order: 4
 ---
 
+# {{ page.title }}
+
+* TOC
+{:toc}
+
 As mentioned before, every iffinity project is defined by a configuration file.
 
 By default, `ifc init` creates an `iff-config.json` file in the project's root directory, populating it with only the most basic info. Here is an overview of all possible fields that this JSON file can have (this is its actual type definition in TypeScript):

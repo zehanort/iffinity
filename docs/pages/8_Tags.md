@@ -5,6 +5,8 @@ permalink: /tags/
 nav_order: 8
 ---
 
+# {{ page.title }}
+
 Another of iffinity's strengths, its tag system enables the author to have a fine-grained control over the way their logic and/or styles are organized across their story.
 
 Every snippet can have 0 or more tags:

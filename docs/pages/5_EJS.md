@@ -5,6 +5,11 @@ permalink: /ejs/
 nav_order: 5
 ---
 
+# {{ page.title }}
+
+* TOC
+{:toc}
+
 You can write whatever JavaScript code you like inside your snippets. The iffinity engine uses the [EJS template system](https://ejs.co/). You don't need to worry much about it, though. The following cases will cover you 99% of the time.
 
 ## Arbitrary JavaScript

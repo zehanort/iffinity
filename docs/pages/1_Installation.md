@@ -5,6 +5,11 @@ permalink: /intro/
 nav_order: 1
 ---
 
+# {{ page.title }}
+
+* TOC
+{:toc}
+
 ## Installation
 
 You can install the iffinity engine via the npm registry:

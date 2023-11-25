@@ -5,6 +5,11 @@ permalink: /cli/
 nav_order: 2
 ---
 
+# {{ page.title }}
+
+* TOC
+{:toc}
+
 The author interacts with the iffinity engine via the `ifc` (iffinity compiler) command line tool:
 
 ```
