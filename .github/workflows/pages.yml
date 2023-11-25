@@ -38,7 +38,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
             - name: Copy README to docs
-              run: cp ../README.md ./README_copy.md
+              run: sed '/^\s*<source/d' ../README.md > ./README_copy.md # keep only the dark-theme logo
             - name: Setup Ruby
               uses: ruby/setup-ruby@v1
               with:
