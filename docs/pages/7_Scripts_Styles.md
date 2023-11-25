@@ -7,11 +7,11 @@ nav_order: 7
 
 On of the greatest strengths of the iffinity engine is that it allows the author to organize their scripts and styles however they desire, using the configuration file.
 
-iffinity features a hierarchical system to organize the code of a project. There are 4 levels/types of scripts/styles. With the exception of the libraries, all other levels have access to the [author API](/author-api/), as well as to jQuery and EJS. Higher to lower, these levels are the following:
+iffinity features a hierarchical system to organize the code of a project. There are 4 levels/types of scripts/styles. With the exception of the libraries, all other levels have access to the [author API]({{ site.baseurl }}/author-api/), as well as to jQuery and EJS. Higher to lower, these levels are the following:
 
 ## The library scripts/stylesheets
 
-These files are defined in the `libraries.{scripts,styles}` fields of the configuration file. They are JS/CSS files that are appended to the `<head>` of the output HTML. They have no access to the [author API](/author-api/). These can be external libraries (like jQuery) or custom user libraries.
+These files are defined in the `libraries.{scripts,styles}` fields of the configuration file. They are JS/CSS files that are appended to the `<head>` of the output HTML. They have no access to the [author API]({{ site.baseurl }}/author-api/). These can be external libraries (like jQuery) or custom user libraries.
 
 ## The story scripts/stylesheets
 
@@ -23,7 +23,7 @@ These are JS script files that are defined in the `scripts.global` field of the 
 
 ## Tag-specific scripts/stylesheets
 
-These files are defined in the `{scripts,styles}.tags` fields of the configuration file. They are JS/CSS files that are associated with a specific tag rule. Each entry of the `{scripts,styles}.tags` arrays is an object with 2 fields, a tag rule (`{scripts,styles}.tags[i].rule`) and some associated scripts (`{scripts,styles}.tags[i].files`). Only the snippets whose tags satisfy the tag rule will have those files. For more information, see the page on iffinity's [tag system](/tags/). Not that the tag-specific scripts **run before any snippet-specific scripts** and that the tag-specific stylesheets **override any styles of higher levels**.
+These files are defined in the `{scripts,styles}.tags` fields of the configuration file. They are JS/CSS files that are associated with a specific tag rule. Each entry of the `{scripts,styles}.tags` arrays is an object with 2 fields, a tag rule (`{scripts,styles}.tags[i].rule`) and some associated scripts (`{scripts,styles}.tags[i].files`). Only the snippets whose tags satisfy the tag rule will have those files. For more information, see the page on iffinity's [tag system]({{ site.baseurl }}/tags/). Not that the tag-specific scripts **run before any snippet-specific scripts** and that the tag-specific stylesheets **override any styles of higher levels**.
 
 ## Snippet-specific scripts/stylesheets
 
@@ -45,4 +45,4 @@ Maybe you have a snippet that is a highly stylized, logic-heavy minigame? Snippe
 
 ## Injected scripts
 
-These are code segments injected in the snippet via the EJS template system. For more information, see the [relevant page](/ejs/).
+These are code segments injected in the snippet via the EJS template system. For more information, see the [relevant page]({{ site.baseurl }}/ejs/).

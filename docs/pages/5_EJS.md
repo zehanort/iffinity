@@ -52,9 +52,9 @@ You can interpolate JavaScript values using the `<%- ... %>` EJS tags (same as b
 
 Every code you write inside EJS tags has access to the following variables created by iffinity:
 
- - `story`: The [story object](/author-api/#the-story-object)
- - `snippet`: The current [snippet object](/author-api/#the-snippet-object)
+ - `story`: The [story object]({{ site.baseurl }}/author-api/#the-story-object)
+ - `snippet`: The current [snippet object]({{ site.baseurl }}/author-api/#the-snippet-object)
  - `s`: The story state object (shorthand for the `story.state` field)
  - `f`: The story functions object (shorthand for the `story.funcs` field)
 
-Note that the only way to have variables/computations etc escape a certain EJS segment and live on is to store them in the story state `s`. For functions, the pseudo-variable `f` is recommended (shorthand for the `story.funcs` field). The only difference between `s` and `f` is that `s` is serialized by the `save()` method of the `Story` object, so functions won't survive this. For more information, see the page on [the author API](/author-api/).
+Note that the only way to have variables/computations etc escape a certain EJS segment and live on is to store them in the story state `s`. For functions, the pseudo-variable `f` is recommended (shorthand for the `story.funcs` field). The only difference between `s` and `f` is that `s` is serialized by the `save()` method of the `Story` object, so functions won't survive this. For more information, see the page on [the author API]({{ site.baseurl }}/author-api/).

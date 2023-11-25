@@ -52,7 +52,7 @@ Every field that has an `?` after its name means that it is optional. All other 
 
 Every field that has a type of `StringOrStringArray` can either be a single file (e.g. `scripts.story = "story.js"`) or a list of files (e.g. `scripts.story = ["story1.js", "story2.js"]`. The following apply to all fields of the `StringOrStringArray` type:
 1. They are applied **in order**. This means that a JS script will run after all the previous in the same list have run, and that a CSS stylesheet will override all properties defined in previous stylesheets in the same list (that it also defines).
-2. For JS scripts: They run **in the same EJS scope** (except for the library scripts, see below), so subsequent scripts in a list have access to variables/functions etc defined in the previous scripts of the same list. This facilitates the author to further break down their logic in smaller parts if they see fit, without having to always use the story state `s` for [intra-level](/scripts-styles/) script communication.
+2. For JS scripts: They run **in the same EJS scope** (except for the library scripts, see below), so subsequent scripts in a list have access to variables/functions etc defined in the previous scripts of the same list. This facilitates the author to further break down their logic in smaller parts if they see fit, without having to always use the story state `s` for [intra-level]({{ site.baseurl }}/scripts-styles/) script communication.
 
 A breakdown of all configuration fields follows:
 
@@ -65,16 +65,16 @@ A breakdown of all configuration fields follows:
    - `repository`: The repository of the story. This field is optional.
      - `type`: The type of the repository (e.g. `git`)
      - `url`: The URL of the repository.
- - `libraries`: This field contains the paths to the libraries that the story uses. These are scripts that will be added to the `head` tag of the output HTML. Note that these scripts **have no access to the [author API](/author-api/)**.
+ - `libraries`: This field contains the paths to the libraries that the story uses. These are scripts that will be added to the `head` tag of the output HTML. Note that these scripts **have no access to the [author API]({{ site.baseurl }}/author-api/)**.
    - `scripts`: The paths to the JavaScript libraries.
    - `styles`: The paths to the CSS libraries.
  - `scripts`: This field contains the paths to the scripts that the story uses.
-   - `story`: The path(s) to the [story script(s)](/scripts-styles/#the-story-scriptsstylesheets).
-   - `global`: The path(s) to the [global script(s)](/scripts-styles/#the-global-scripts).
-   - `tags`: A list of tag rules and the associated paths to the scripts that they correspond to. See the page about [the tag system](/tags/) for more information.
+   - `story`: The path(s) to the [story script(s)]({{ site.baseurl }}/scripts-styles/#the-story-scriptsstylesheets).
+   - `global`: The path(s) to the [global script(s)]({{ site.baseurl }}/scripts-styles/#the-global-scripts).
+   - `tags`: A list of tag rules and the associated paths to the scripts that they correspond to. See the page about [the tag system]({{ site.baseurl }}/tags/) for more information.
  - `styles`: This field contains the paths to the stylesheets that the story uses.
-   - `story`: The path(s) to the [story stylesheet(s)](/scripts-styles/#the-story-scriptsstylesheets).
-   - `tags`: A list of tag rules and the associated paths to the stylesheets that they correspond to. See the page about [the tag system](/tags/) for more information.
+   - `story`: The path(s) to the [story stylesheet(s)]({{ site.baseurl }}/scripts-styles/#the-story-scriptsstylesheets).
+   - `tags`: A list of tag rules and the associated paths to the stylesheets that they correspond to. See the page about [the tag system]({{ site.baseurl }}/tags/) for more information.
  - `validation`: See the following section.
 
 ## Source HTML validation

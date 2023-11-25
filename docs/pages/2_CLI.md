@@ -39,7 +39,7 @@ Options:
 
 ## The `init` command
 
-As explained in the previous page, the `init` command aims to help the author create a stub for their iffinity project. It covers the required fields of the [configuration file](/config/) (as well as a bit more), and optionally creates an example game as a template. It is heavily inspired by the behavior of `npm init`. Note that it is preferable to run `ifc init` in a newly created, empty directory.
+As explained in the previous page, the `init` command aims to help the author create a stub for their iffinity project. It covers the required fields of the [configuration file]({{ site.baseurl }}/config/) (as well as a bit more), and optionally creates an example game as a template. It is heavily inspired by the behavior of `npm init`. Note that it is preferable to run `ifc init` in a newly created, empty directory.
 
 ## The `compile` command
 

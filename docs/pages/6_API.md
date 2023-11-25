@@ -5,12 +5,12 @@ permalink: /author-api/
 nav_order: 6
 ---
 
-iffinity exposes an API to the author's JavaScript code, both inside EJS segments, as well as to the [story, global and snippet scripts](/scripts-styles/).
+iffinity exposes an API to the author's JavaScript code, both inside EJS segments, as well as to the [story, global and snippet scripts]({{ site.baseurl }}/scripts-styles/).
 
 As explained previously, any code you write inside EJS tags has access to the following variables created by iffinity:
 
- - `story`: The [story object](/author-api/#the-story-object)
- - `snippet`: The current [snippet object](/author-api/#the-snippet-object)
+ - `story`: The [story object]({{ site.baseurl }}/author-api/#the-story-object)
+ - `snippet`: The current [snippet object]({{ site.baseurl }}/author-api/#the-snippet-object)
  - `s`: The story state object (a pseudo-variable; shorthand for the `story.state` field)
  - `f`: The story functions object (a pseudo-variable; shorthand for the `story.funcs` field)
 

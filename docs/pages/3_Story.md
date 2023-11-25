@@ -31,14 +31,14 @@ A snippet is nothing more than an HTML tag with the following structure:
 
 An exhaustive list of all possible snippet attributes follows:
  - `name`: The name of the snippet. Must be unique throughout the story. This attribute is **required** for every snippet.
- - `tags`: A list of space-separated tags for the snippet. See the [tags](/tags/) page for more information. This attribute is not required.
+ - `tags`: A list of space-separated tags for the snippet. See the [tags]({{ site.baseurl }}/tags/) page for more information. This attribute is not required.
  - `scripts`: A list of **semicolon-separated** JavaScript files that will run every time the snippet is shown. The scripts will run **in the order the are listed**, and also **inside the same EJS scope**. This attribute is not required.
  - `styles`: A list of **semicolon-separated** CSS files to be applied on this snippet. The styles will be applied **in the order the are listed**. This attribute is not required.
  - `start`: This attribute indicates that the snippet is **the entry point** of the story (i.e., the first "page" the player will see). In every story, **exactly one snippet must have this attribute**.
 
-For more information on the `scripts` and `styles` attribute, see the [relevant wiki page](/scripts-styles/).
+For more information on the `scripts` and `styles` attribute, see the [relevant wiki page]({{ site.baseurl }}/scripts-styles/).
 
-The content of the snippet is plain-old HTML, where the author can also inject JavaScript code via the [EJS template engine](/ejs/).
+The content of the snippet is plain-old HTML, where the author can also inject JavaScript code via the [EJS template engine]({{ site.baseurl }}/ejs/).
 
 ### Snippet links
 
@@ -72,7 +72,7 @@ The iffinity compiler replaces all `[[<custom text>||<id and classes>]]` (note t
 Do you wish to proceed to the next room [[with your sword||#sword.proceed]] or [[leave it behind||#no-sword.proceed]]?
 ```
 
-These links will be replaced by `<a>` tags by the compiler (which also happens with the 2 previous types). However, the first will have `id="sword"`, the second one will have `id="no-sword"`, while both of them will have `class="proceed"`. By organizing your links this way, you could then write some simple [code in the snippet](/ejs/) to introduce a state change:
+These links will be replaced by `<a>` tags by the compiler (which also happens with the 2 previous types). However, the first will have `id="sword"`, the second one will have `id="no-sword"`, while both of them will have `class="proceed"`. By organizing your links this way, you could then write some simple [code in the snippet]({{ site.baseurl }}/ejs/) to introduce a state change:
 
 ```js
 <%
@@ -85,7 +85,7 @@ These links will be replaced by `<a>` tags by the compiler (which also happens w
 %>
 ```
 
-This way, the player will navigate to the "Next Room" snippet regardless, but the `s.SWORD` variable will be `true` or `false`, depending on what they clicked. This is a powerful mechanism to simplify the structure of your snippets and introduce state changes without messing with your snippet organization. Note, however, that these are **dead links**. This means that it is **your responsibility** to change the snippet (if so desired), via the `showSnippet()` method of the `story` variable. See the [author API page](/author-api/) for more information.
+This way, the player will navigate to the "Next Room" snippet regardless, but the `s.SWORD` variable will be `true` or `false`, depending on what they clicked. This is a powerful mechanism to simplify the structure of your snippets and introduce state changes without messing with your snippet organization. Note, however, that these are **dead links**. This means that it is **your responsibility** to change the snippet (if so desired), via the `showSnippet()` method of the `story` variable. See the [author API page]({{ site.baseurl }}/author-api/) for more information.
 
 ### HTML shorthands
 
