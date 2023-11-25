@@ -2,9 +2,10 @@ title: iffinity docs
 theme: just-the-docs
 
 aux_links:
-    GitHub Repo: https://github.com/zehanort/iffinity
+    GitHub Repo: https://github.com/zehanort/iffinity/
 
-url: https://zehanort.github.io/iffinity
+url: https://zehanort.github.io
+baseurl: /iffinity
 
 color_scheme: dark
 
