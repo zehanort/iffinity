@@ -36,7 +36,7 @@ An exhaustive list of all possible snippet attributes follows:
  - `styles`: A list of **semicolon-separated** CSS files to be applied on this snippet. The styles will be applied **in the order the are listed**. This attribute is not required.
  - `start`: This attribute indicates that the snippet is **the entry point** of the story (i.e., the first "page" the player will see). In every story, **exactly one snippet must have this attribute**.
 
-For more information on the `scripts` and `styles` attribute, see the [relevant wiki page]({{ site.baseurl }}/scripts-styles/).
+For more information on the `scripts` and `styles` attribute, see the [relevant page]({{ site.baseurl }}/scripts-styles/).
 
 The content of the snippet is plain-old HTML, where the author can also inject JavaScript code via the [EJS template engine]({{ site.baseurl }}/ejs/).
 
