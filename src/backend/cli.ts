@@ -1,10 +1,6 @@
 #!/usr/bin/env node
 
 import yargs from "yargs";
-import { compileProject } from "./utils/compiler";
-import { showProjectDetails } from "./utils/viewer";
-import { initializeProject } from "./utils/initializer";
-import { editConfigFile } from "./utils/config";
 import { red } from "ansis/colors";
 import path from "path";
 
@@ -65,13 +61,19 @@ yargs
                     return true;
                 });
         },
-        async (argv) => await compileProject(argv)
+        async (argv) => {
+            const compiler = await import("./utils/compiler");
+            await compiler.compileProject(argv);
+        }
     )
     .command(
         "init",
         "Create a new iffinity project in the current directory",
         {},
-        async (_) => await initializeProject()
+        async (_) => {
+            const initializer = await import("./utils/initializer");
+            await initializer.initializeProject();
+        }
     )
     .command(
         "edit [options]",
@@ -217,7 +219,10 @@ yargs
                     return true;
                 });
         },
-        editConfigFile
+        async (argv) => {
+            const config = await import("./utils/config");
+            config.editConfigFile(argv);
+        }
     )
     .command(
         "show [options]",
@@ -258,8 +263,13 @@ yargs
                     return true;
                 });
         },
-        async (argv) => await showProjectDetails(argv)
+        async (argv) => {
+            const viewer = await import("./utils/viewer");
+            await viewer.showProjectDetails(argv);
+        }
     )
     .alias("v", "version")
     .alias("h", "help")
-    .help().argv;
+    .help()
+    .completion()
+    .argv;
