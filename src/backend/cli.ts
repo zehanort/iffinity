@@ -270,6 +270,5 @@ yargs
     )
     .alias("v", "version")
     .alias("h", "help")
-    .help()
     .completion()
-    .argv;
+    .help().argv;
